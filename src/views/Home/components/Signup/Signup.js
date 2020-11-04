@@ -15,7 +15,7 @@ import ProfileForm from './Forms/ProfileForm';
 import ReviewForm from './Forms/ReviewForm';
 
 //Validation Schema
-import { UserSignupSchema } from "../../../validation/Validations";
+import { UserSignupSchema } from "../../../../validation/Validations";
 
 import useStyles from './Forms/SignupFormStyles';
 

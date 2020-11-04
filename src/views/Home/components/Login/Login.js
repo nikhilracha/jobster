@@ -8,16 +8,21 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 
 // components
-import { LoginSchema } from "../../../validation/Validations";
+import { LoginSchema } from "../../../../validation/Validations";
 import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 // @material-ui/icons
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
+import { compose } from "recompose";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { asyncLogin } from "../../../../actions/authActions";
+
 const useStyles = makeStyles(styles);
 
-export default function Login(props) {
+function Login(props) {
     const classes = useStyles();
 
     const [visible, setVisible] = React.useState({
@@ -39,15 +44,15 @@ export default function Login(props) {
                 onSubmit={(values, actions) => {
                     console.log("props", values)
 
-                    // props.asyncLogin(values)
-                    //     .then(res => {
-                    //         actions.setErrors(res);
-                    //         actions.setSubmitting(false);
-                    //         console.log("response", res);
-                    //         if (res.error) {
-                    //             console.log("error in login", res.error)
-                    //         }
-                    //     })
+                    props.asyncLogin(values)
+                        .then(res => {
+                            actions.setErrors(res);
+                            actions.setSubmitting(false);
+                            console.log("response", res);
+                            if (res.error) {
+                                console.log("error in login", res.error)
+                            }
+                        })
                 }}
             >
                 {({
@@ -110,3 +115,17 @@ export default function Login(props) {
         </div>
     );
 }
+
+Login.propTypes = {
+    asyncLogin: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+    }
+}
+
+export default compose(connect(mapStateToProps, { asyncLogin }, null))(Login);

@@ -13,9 +13,9 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { LockOpen, Business, Close } from "@material-ui/icons";
 
 //Components
-import Button from "components/CustomButtons/Button.js";
-import Login from "../../Home/components/Login/Login";
-import Signup from "../../Home/components/Signup/Signup";
+import Button from "../CustomButtons/Button";
+import Login from "../../views/Home/components/Login/Login";
+import Signup from "../../views/Home/components/Signup/Signup";
 
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 

@@ -1,0 +1,6 @@
+export const SET_USER_REQUEST = "SET_USER_REQUEST";
+export const SET_USER_SUCCESS = "SET_USER_SUCCESS";
+export const SET_USER_FAILURE = "SET_USER_FAILURE";
+
+export const SET_ERRORS = "SET_ERRORS";
+export const USER_LOGOUT = "USER_LOGOUT"
