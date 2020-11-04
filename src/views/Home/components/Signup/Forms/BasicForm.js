@@ -34,7 +34,7 @@ export default function BasicForm(props) {
                     <InputField name='email' type="email" label='Email' fullWidth />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <InputField name='phone' type="number" label='Phone number' fullWidth />
+                    <InputField name='phone' type="text" label='Phone number' fullWidth />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <InputField

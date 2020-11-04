@@ -19,6 +19,11 @@ import { UserSignupSchema } from "../../../../validation/Validations";
 
 import useStyles from './Forms/SignupFormStyles';
 
+import { compose } from "recompose";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { asyncRegister } from "../../../../actions/authActions";
+
 const steps = ['Account Details', 'Profile Details', 'Confirm Details'];
 
 function _renderStepContent(step) {
@@ -34,7 +39,7 @@ function _renderStepContent(step) {
     }
 }
 
-export default function CheckoutPage() {
+function CheckoutPage(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const currentValidationSchema = UserSignupSchema[activeStep];
@@ -46,10 +51,26 @@ export default function CheckoutPage() {
 
     async function _submitForm(values, actions) {
         await _sleep(1000);
-        alert(JSON.stringify(values, null, 2));
+        //alert(JSON.stringify(values, null, 2));
         actions.setSubmitting(false);
+        //setActiveStep(activeStep + 1);
 
-        setActiveStep(activeStep + 1);
+        props.asyncRegister(values)
+            .then(res => {
+                actions.setErrors(res);
+                actions.setSubmitting(false);
+                console.log("response", res);
+                if (!res.hasOwnProperty('status')) {
+                    setActiveStep(0);
+                }
+                else {
+                    setActiveStep(activeStep + 1);
+                }
+                // if (res.error) {
+                //     //setActiveStep(0);
+                //     console.log("error in signup", res.error)
+                // }
+            })
     }
 
     function _handleSubmit(values, actions) {
@@ -96,7 +117,8 @@ export default function CheckoutPage() {
                                 street: '',
                                 state: '',
                                 zip: '',
-                                country: ''
+                                country: '',
+                                substatus: '0'
                             }}
                             validationSchema={currentValidationSchema}
                             onSubmit={_handleSubmit}
@@ -137,3 +159,11 @@ export default function CheckoutPage() {
         </React.Fragment>
     );
 }
+
+CheckoutPage.propTypes = {
+    asyncRegister: PropTypes.func.isRequired,
+};
+
+
+
+export default compose(connect(null, { asyncRegister }, null))(CheckoutPage);

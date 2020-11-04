@@ -1,4 +1,7 @@
 import {
+    SET_USER_SIGNUP_REQUEST,
+    SET_USER_SIGNUP_SUCCESS,
+    SET_USER_SIGNUP_FAILURE,
     SET_USER_REQUEST,
     SET_USER_SUCCESS,
     SET_USER_FAILURE,
@@ -44,13 +47,13 @@ export const asyncLogin = userData => {
             if (errors.message === 'Network Error') {
                 return delay(5000).then(function () {
                     console.log("Network Error", errors);
-                    dispatch(networkErrorHandler(errors));
+                    dispatch(networkErrorHandler(errors, SET_USER_FAILURE));
                     return { error: "Trouble with the network" };
                 });
 
             } else {
                 return delay(5000).then(function () {
-                    dispatch(errorHandler(errors));
+                    dispatch(errorHandler(errors, SET_USER_FAILURE));
                     if (errors.code === 'ECONNABORTED') {
                         return { error: "Time out retry again" }
                     }
@@ -62,10 +65,52 @@ export const asyncLogin = userData => {
     }
 }
 
+
+export const asyncRegister = userData => {
+    return async dispatch => {
+        dispatch(userSignupRequest(userData));
+        try {
+            const response = await axios.post("http://localhost:5000/api/register", userData, { timeout: 10000 });
+            console.log("userdata", userData)
+            const { status } = response.data;
+            console.log("loggigin", response)
+            if (status) {
+                //Set the current user
+                // setTimeout(() => {
+                //     dispatch(setCurrentUser(decoded));
+                // }, 3000)
+                return { status: "registered" }
+            }
+        }
+
+        catch (errors) {
+            console.log("errors in async register", errors.request);
+            if (errors.message === 'Network Error') {
+                return delay(5000).then(function () {
+                    console.log("Network Error", errors);
+                    dispatch(networkErrorHandler(errors, SET_USER_SIGNUP_FAILURE));
+                    return { error: "Trouble with the network" };
+                });
+
+            } else {
+                return delay(5000).then(function () {
+                    dispatch(errorHandler(errors, SET_USER_SIGNUP_FAILURE));
+                    if (errors.code === 'ECONNABORTED') {
+                        return { error: "Time out retry again" }
+                    }
+                    return errors.response.data;
+                });
+            }
+
+        }
+    }
+}
+
+
 //Network Error handler 
-export const networkErrorHandler = errors => {
+export const networkErrorHandler = (errors, type) => {
     return {
-        type: SET_USER_FAILURE,
+        type: type,
         payload: errors
     };
 };
@@ -73,15 +118,15 @@ export const networkErrorHandler = errors => {
 
 
 //Error handler 
-export const errorHandler = errors => {
+export const errorHandler = (errors, type) => {
     if (errors.code === 'ECONNABORTED') {
         return {
-            type: SET_USER_FAILURE,
+            type: type,
             payload: errors
         }
     }
     return {
-        type: SET_USER_FAILURE,
+        type: type,
         payload: errors.response.data
     };
 };
@@ -99,6 +144,20 @@ export const userRequest = data => {
     return {
         type: SET_USER_REQUEST,
         payload: data
+    };
+};
+
+export const userSignupRequest = data => {
+    return {
+        type: SET_USER_SIGNUP_REQUEST,
+        payload: data
+    };
+};
+
+export const userSignupSuccess = decoded => {
+    return {
+        type: SET_USER_SIGNUP_SUCCESS,
+        payload: decoded
     };
 };
 

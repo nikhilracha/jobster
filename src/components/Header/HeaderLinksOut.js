@@ -1,7 +1,7 @@
 import React from "react";
 
 // @material-ui/core components
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import IconButton from '@material-ui/core/IconButton';
@@ -18,19 +18,6 @@ import { logoutUser } from '../../actions/authActions';
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
-
-const styless = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
 
 export default function HeaderLinksOut(props) {
     const classes = useStyles();
