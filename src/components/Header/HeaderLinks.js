@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { useHistory } from 'react-router-dom';
 
 // @material-ui/icons
 import { LockOpen, Business, Close } from "@material-ui/icons";
@@ -52,6 +53,11 @@ export default function HeaderLinks(props) {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignup, setOpenSignup] = React.useState(false);
+  const history = useHistory();
+
+  const goToPartner = () => {
+    history.push("/partner")
+  }
 
   const handleLoginOpen = () => {
     setOpenLogin(true);
@@ -93,7 +99,7 @@ export default function HeaderLinks(props) {
         </ListItem>
         <ListItem className={classes.listItem}>
           <Button
-            href="#"
+            onClick={goToPartner}
             color="transparent"
             target="_blank"
             className={classes.navLink}

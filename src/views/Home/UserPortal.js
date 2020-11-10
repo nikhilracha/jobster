@@ -29,9 +29,11 @@ function UserPortal(props) {
         // Check for token
         if (localStorage.jwtToken) {
             // Set auth token header auth
+            console.log("in effect", localStorage.jwtToken);
             setAuthToken(localStorage.jwtToken);
             // Decode token and get user info and exp
             const decoded = jwt_decode(localStorage.jwtToken);
+            console.log("in effect decoded", decoded);
             // Set user and isAuthenticated
             store.dispatch(setCurrentUser(decoded));
 
