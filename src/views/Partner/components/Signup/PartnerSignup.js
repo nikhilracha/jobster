@@ -121,7 +121,7 @@ function PartnerSignup(props) {
                             </Avatar>
                             <Typography component="h1" variant="h5">
                                 Sign up
-        </Typography>
+                            </Typography>
                             <Formik
                                 initialValues={{
                                     firstName: '',

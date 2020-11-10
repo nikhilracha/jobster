@@ -1,7 +1,17 @@
+import Header from '../../components/Header/Header';
+import FAQList from './FAQ/FAQList';
+import Footer from '../../components/Footer/Footer';
+
+
 function FAQ() {
     return (
         <div>
-            <h1>This is FAQ page</h1>
+            <Header
+                brand="JOBSTER"
+                color="transparent"
+            />
+            <FAQList />
+            <Footer />
         </div>
     );
 }

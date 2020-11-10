@@ -2,6 +2,7 @@ import React from 'react';
 import Header from "../../components/Header/Header";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import HeaderLinksOut from "../../components/Header/HeaderLinksOut.js";
+import Footer from '../../components/Footer/Footer';
 import SearchBar from "./components/SearchBar/SearchBar";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -83,6 +84,7 @@ function UserPortal(props) {
                     </Grid>
                 </Grid>
             </div>
+            <Footer />
         </>
     );
 }

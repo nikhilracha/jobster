@@ -1,7 +1,17 @@
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Employees from "./Contact/pages/Employees/Employees";
+
+
 function Contact() {
     return (
         <div>
-            <h1>This is contact page</h1>
+            <Header
+                brand="JOBSTER"
+                color="transparent"
+            />
+            <Employees />
+            <Footer />
         </div>
     );
 }
