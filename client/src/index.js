@@ -16,6 +16,7 @@ import Contact from './views/Helpdesk/Contact';
 import PartnerSignup from './views/Partner/components/Signup/PartnerSignup';
 import PartnerDashboard from './views/Partner/components/Dashboard/PartnerDashboard'
 import FAQ from 'views/Helpdesk/FAQ';
+import Testh from 'views/Helpdesk/Testh';
 
 
 var hist = createBrowserHistory();
@@ -32,6 +33,7 @@ ReactDOM.render(
           <Route path="/p-dashboard" component={PartnerDashboard} />
           <Route path="/contact" component={Contact} />
           <Route path="/FAQ" component={FAQ} />
+          <Route path="/testh" component={Testh} />
           <Route path="/" component={UserPortal} />
         </Switch>
         {/* </Router> */}
