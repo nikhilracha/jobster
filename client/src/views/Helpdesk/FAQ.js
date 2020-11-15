@@ -1,4 +1,4 @@
-import Header from '../../components/Header/Header';
+import HeaderWithout from '../Home/components/Header/HeaderWithout';
 import FAQList from './FAQ/FAQList';
 import Footer from '../../components/Footer/Footer';
 
@@ -6,10 +6,7 @@ import Footer from '../../components/Footer/Footer';
 function FAQ() {
     return (
         <div>
-            <Header
-                brand="JOBSTER"
-                color="transparent"
-            />
+            <HeaderWithout />
             <FAQList />
             <Footer />
         </div>

@@ -2,7 +2,7 @@ import { container, primaryColor } from "assets/jss/material-kit-react.js";
 
 const footerStyle = {
   block: {
-    color: "inherit",
+    color: "white",
     padding: "0.9375rem",
     fontWeight: "500",
     fontSize: "12px",
@@ -17,12 +17,14 @@ const footerStyle = {
     display: "block"
   },
   right: {
+    color: "white",
     padding: "15px 0",
     margin: "0",
-    float: "right!important"
+    float: "center!important"
   },
   footer: {
     padding: "0.9375rem 0",
+    background: '#2867B2',
     textAlign: "center",
     display: "flex",
     zIndex: "2",
@@ -31,13 +33,13 @@ const footerStyle = {
     width: '100%'
   },
   a: {
-    color: primaryColor,
+    color: 'white',
     textDecoration: "none",
     backgroundColor: "transparent"
   },
   footerWhiteFont: {
     "&,&:hover,&:focus": {
-      color: "#FFFFFF"
+      color: 'black'
     }
   },
   container,

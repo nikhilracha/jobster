@@ -7,6 +7,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { LocationOn } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles((theme) => ({
     root2: {
@@ -26,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+    card: {
+
+    }
 }));
 
 export default function SearchBar() {
@@ -34,6 +39,8 @@ export default function SearchBar() {
     return (
         <>
             <div>
+                {/* <Card className={classes.card}>
+                    <CardContent> */}
                 <Grid container justify="center" spacing={2}>
                     <Grid item>
                         <Paper component="form" className={classes.root2}>
@@ -63,6 +70,8 @@ export default function SearchBar() {
                         <Button size="large" variant="contained">Search</Button>
                     </Grid>
                 </Grid>
+                {/* </CardContent>
+                </Card> */}
             </div>
         </>
     );

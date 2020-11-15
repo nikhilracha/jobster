@@ -17,6 +17,7 @@ export function InputField(props) {
     return (
         <TextField
             //type="text"
+            variant={'outlined'}
             error={meta.touched && meta.error && true}
             helperText={_renderHelperText()}
             {...field}

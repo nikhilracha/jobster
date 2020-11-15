@@ -1,7 +1,8 @@
 import React from 'react';
-import Header from "../../components/Header/Header";
-import HeaderLinks from "../../components/Header/HeaderLinks.js";
-import HeaderLinksOut from "../../components/Header/HeaderLinksOut.js";
+import Header from './components/Header/Header';
+// import Header from "../../components/Header/Header";
+// import HeaderLinks from "../../components/Header/HeaderLinks.js";
+// import HeaderLinksOut from "../../components/Header/HeaderLinksOut.js";
 import Footer from '../../components/Footer/Footer';
 import SearchBar from "./components/SearchBar/SearchBar";
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         marginTop: '200px',
     },
+    card: {
+        width: '97%'
+    }
 }));
 
 function UserPortal(props) {
@@ -61,7 +65,7 @@ function UserPortal(props) {
 
     return (
         <>
-            <Header
+            {/* <Header
                 brand="JOBSTER"
                 rightLinks={props.auth.isAuthenticated ? <HeaderLinksOut user={props.auth.user} /> : <HeaderLinks />}
                 fixed
@@ -71,9 +75,10 @@ function UserPortal(props) {
                     color: "white"
                 }}
                 {...rest}
-            />
+            /> */}
+            <Header />
 
-            <div className={classes.root}>
+            <div className={classes.root} >
                 <Grid container
                     direction="row"
                     justify="center"

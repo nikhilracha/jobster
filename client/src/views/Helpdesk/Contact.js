@@ -1,4 +1,4 @@
-import Header from "../../components/Header/Header";
+import HeaderWithout from '../Home/components/Header/HeaderWithout';
 import Footer from "../../components/Footer/Footer";
 import Employees from "./Contact/pages/Employees/Employees";
 
@@ -6,10 +6,7 @@ import Employees from "./Contact/pages/Employees/Employees";
 function Contact() {
     return (
         <div>
-            <Header
-                brand="JOBSTER"
-                color="transparent"
-            />
+            <HeaderWithout />
             <Employees />
             <Footer />
         </div>

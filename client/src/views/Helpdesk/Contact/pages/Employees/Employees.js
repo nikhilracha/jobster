@@ -6,6 +6,8 @@ import { Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
+        marginTop: '90px',
+        marginBottom: '90px',
         margin: theme.spacing(5),
         padding: theme.spacing(3)
     }
@@ -17,8 +19,6 @@ export default function Employees() {
 
     return (
         <>
-
-
             <Paper className={classes.pageContent}>
                 <PageHeader
                     title="Contact Us"

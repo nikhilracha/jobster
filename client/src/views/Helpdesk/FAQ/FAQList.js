@@ -11,8 +11,10 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
+        margin: theme.spacing(3),
+        marginTop: '90px',
+        marginBottom: '90px',
+        padding: theme.spacing(3),
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),

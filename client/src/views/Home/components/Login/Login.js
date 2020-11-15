@@ -68,6 +68,7 @@ function Login(props) {
                         <form className={classes.form} onSubmit={handleSubmit} noValidate>
                             <TextField
                                 margin="normal"
+                                variant="outlined"
                                 required
                                 fullWidth
                                 id="email"
@@ -82,6 +83,7 @@ function Login(props) {
                             <ErrorMessage name="email" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                             <TextField
                                 margin="normal"
+                                variant="outlined"
                                 required
                                 fullWidth
                                 name="password"
@@ -107,12 +109,12 @@ function Login(props) {
                                 }}
                             />
                             <ErrorMessage name="password" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
-                            <Button type="submit" color="transparent"
+                            <Button type="submit" style={{ background: '#2867B2' }}
                                 size="lg">Login</Button>
                         </form>
                     )}
             </Formik>
-        </div>
+        </div >
     );
 }
 
