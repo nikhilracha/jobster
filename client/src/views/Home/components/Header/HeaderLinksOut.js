@@ -1,9 +1,8 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
@@ -23,9 +22,6 @@ import { AccountCircle } from "@material-ui/icons";
 //Components
 import store from '../../../../store';
 import { logoutUser } from '../../../../actions/authActions';
-
-import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
-
 
 
 
@@ -49,18 +45,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const styless = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+
 
 
 function Header(props) {

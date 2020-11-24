@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UserPortal(props) {
-    const { ...rest } = props;
     const classes = useStyles();
     console.log("Props", props);
 

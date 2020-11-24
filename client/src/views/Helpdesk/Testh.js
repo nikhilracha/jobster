@@ -16,7 +16,7 @@ import Drawer from "@material-ui/core/Drawer";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
-import blue from '@material-ui/core/colors/blue';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,8 +45,6 @@ export default function Testh(props) {
         setMobileOpen(!mobileOpen);
     };
 
-
-    const primary = blue[400];
 
     console.log("widh", props)
 
