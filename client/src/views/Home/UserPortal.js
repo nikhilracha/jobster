@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './components/Header/Header';
+import HeaderLinksOut from './components/Header/HeaderLinksOut';
 // import Header from "../../components/Header/Header";
 // import HeaderLinks from "../../components/Header/HeaderLinks.js";
 // import HeaderLinksOut from "../../components/Header/HeaderLinksOut.js";
@@ -76,7 +77,8 @@ function UserPortal(props) {
                 }}
                 {...rest}
             /> */}
-            <Header />
+
+            {props.auth.isAuthenticated ? <HeaderLinksOut user={props.auth.user} /> : <Header />}
 
             <div className={classes.root} >
                 <Grid container
