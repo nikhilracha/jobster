@@ -126,7 +126,7 @@ function PartnerDashboard(props) {
                     )}
                 </Toolbar>
             </AppBar>
-            <h1>This is the partner Dashboard</h1>
+            <h3>This is the partner Dashboard</h3>
         </div>
     );
 }
