@@ -85,28 +85,20 @@ const SearchResults = () => {
 
     let data = [
         { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
+        { role: "Managing Public relation Specialist", company: "Hello world", location: 'Boston, MA' },
+        { role: "Digital Marketing Specialist", company: "Pay me well", location: 'Boston, MA' },
+        { role: "Managing Public relation Specialist", company: "MD tech", location: 'Boston, MA' },
+        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
+        { role: "Managing Public relation Specialist", company: "Cybernatics", location: 'Boston, MA' },
+        { role: "Digital Marketing Specialist", company: "Bell house tech", location: 'Boston, MA' },
+        { role: "Managing Public relation Specialist", company: "Pay me well", location: 'Boston, MA' },
         { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
         { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-
     ]
     const [activeRow, setActiveRow] = React.useState(0);
+    const [jobData, setJobData] = React.useState(data);
+
+
 
     function renderRow(props) {
         const { data, index, style } = props;
@@ -148,9 +140,9 @@ const SearchResults = () => {
 
     const DetailRow = (props) => {
         const { index } = props;
-        console.log("in detail", data)
+        console.log("in detail", jobData)
 
-        const jobDetail = data[activeRow];
+        const jobDetail = jobData[activeRow];
 
         return (
             <Grid container spacing={3}>
@@ -206,6 +198,10 @@ const SearchResults = () => {
         )
     }
 
+    const handleFilter = (filtered) => {
+        console.log("in parent ", filtered);
+        setJobData(filtered);
+    }
 
     return (
         <Container maxWidth="lg">
@@ -221,7 +217,7 @@ const SearchResults = () => {
                     <SearchBar />
                 </Grid>
                 <Grid item xs={12}>
-                    <SortFilter data={data} />
+                    <SortFilter data={data} filterHandler={handleFilter} />
                 </Grid>
                 <Grid className={classes.list} item xs={4}>
                     <AutoSizer>
@@ -230,9 +226,9 @@ const SearchResults = () => {
                                 className="List"
                                 height={height}
                                 width={width}
-                                itemCount={data.length}
+                                itemCount={jobData.length}
                                 itemSize={150}
-                                itemData={data}
+                                itemData={jobData}
                             >
                                 {renderRow}
                             </List>

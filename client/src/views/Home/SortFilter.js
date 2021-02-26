@@ -36,9 +36,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SortFilter = ({ data }) => {
+const SortFilter = (props) => {
 
     const classes = useStyles();
+
+    const data = props.data
 
     const [open, setOpen] = React.useState(false);
     const [company, setCompany] = React.useState('');
@@ -55,6 +57,7 @@ const SortFilter = ({ data }) => {
     const handleReset = () => {
         setCompany('')
         setJobType('')
+        props.filterHandler(data);
     }
 
     const handleClickOpen = () => {
@@ -63,9 +66,21 @@ const SortFilter = ({ data }) => {
 
     const handleClose = () => {
         setOpen(false);
+
     };
 
-    console.log("data", data)
+    const filter = () => {
+        var filtered = [];
+        data.filter(function (el) {
+            if (el.company === company) filtered.push(el)
+            return filtered;
+        });
+        props.filterHandler(filtered);
+        setOpen(false);
+
+    }
+
+
 
     return (
         <>
@@ -122,7 +137,7 @@ const SortFilter = ({ data }) => {
                     <Button onClick={handleReset} size="small" color="primary">
                         Reset
                     </Button>
-                    <Button variant="outlined" size="small" onClick={handleClose} color="primary">
+                    <Button variant="outlined" size="small" onClick={filter} color="primary">
                         Submit
                     </Button>
                 </DialogActions>
