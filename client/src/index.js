@@ -18,6 +18,7 @@ import PartnerDashboard from './views/Partner/components/Dashboard/PartnerDashbo
 import FAQ from 'views/Helpdesk/FAQ';
 import Testh from 'views/Helpdesk/Testh';
 import SearchResults from 'views/Home/SearchResults';
+import PostJob from './views/Home/PostJob';
 
 
 var hist = createBrowserHistory();
@@ -36,6 +37,7 @@ ReactDOM.render(
           <Route path="/results" component={SearchResults} />
           <Route path="/FAQ" component={FAQ} />
           <Route path="/testh" component={Testh} />
+          <Route path="/post" component={PostJob} />
           <Route path="/" component={UserPortal} />
         </Switch>
         {/* </Router> */}

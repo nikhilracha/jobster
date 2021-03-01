@@ -72,15 +72,12 @@ const SortFilter = (props) => {
     const filter = () => {
         var filtered = [];
         data.filter(function (el) {
-            if (el.company === company) filtered.push(el)
+            if (el.p_companyname === company) filtered.push(el)
             return filtered;
         });
         props.filterHandler(filtered);
         setOpen(false);
-
     }
-
-
 
     return (
         <>
@@ -111,7 +108,7 @@ const SortFilter = (props) => {
                                     <em>None</em>
                                 </MenuItem>
                                 {data.map((x, i) => (
-                                    <MenuItem value={x.company}>{x.company}</MenuItem>
+                                    <MenuItem value={x.p_companyname}>{x.p_companyname}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>

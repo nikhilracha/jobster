@@ -31,6 +31,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import SendIcon from '@material-ui/icons/Send';
 import Divider from '@material-ui/core/Divider';
+import parse from 'html-react-parser'
 
 import { red } from "@material-ui/core/colors";
 import ShareIcon from "@material-ui/icons/Share";
@@ -74,29 +75,21 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5%'
     },
     about: {
-        margin: '4px'
+        margin: '4px',
+        justifyContent: 'flex-start'
     }
 
 }));
 
 
-const SearchResults = () => {
+const SearchResults = (props) => {
     const classes = useStyles();
 
-    let data = [
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Hello world", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Pay me well", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "MD tech", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cybernatics", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Bell house tech", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Pay me well", location: 'Boston, MA' },
-        { role: "Digital Marketing Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-        { role: "Managing Public relation Specialist", company: "Cyber Coders", location: 'Boston, MA' },
-    ]
+    let data = props.location.state.postings;
     const [activeRow, setActiveRow] = React.useState(0);
     const [jobData, setJobData] = React.useState(data);
+
+    console.log("Search results props", props)
 
 
 
@@ -110,20 +103,20 @@ const SearchResults = () => {
                         <Grid container spacing={2}>
                             <Grid item>
                                 <ButtonBase className={classes.image} onClick={() => setActiveRow(index)}>
-                                    <img className={classes.img} alt="complex" src="https://coda.newjobs.com/api/imagesproxy/ms/clu/xcyb/xcyberc3x/branding/6344/cybercoders-logo.jpg" />
+                                    <img className={classes.img} alt="complex" src={data[index].p_company_logo} />
                                 </ButtonBase>
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <Grid item xs container direction="column" spacing={2}>
                                     <Grid item xs>
                                         <Typography gutterBottom variant="body2">
-                                            {data[index].role}
+                                            {data[index].j_role}
                                         </Typography>
                                         <Typography variant="caption" gutterBottom>
-                                            {data[index].company}
+                                            {data[index].p_companyname}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary">
-                                            {data[index].location}
+                                            {data[index].p_state}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -149,12 +142,12 @@ const SearchResults = () => {
                 <Grid container spacing={1}>
                     <Grid item xs={3}>
                         <ButtonBase className={classes.image}>
-                            <img className={classes.img} alt="complex" src="https://coda.newjobs.com/api/imagesproxy/ms/clu/xcyb/xcyberc3x/branding/6344/cybercoders-logo.jpg" />
+                            <img className={classes.img} alt="complex" src={jobDetail.p_company_logo} />
                         </ButtonBase>
                     </Grid>
 
                     <Grid className={classes.info} item xs={6}>
-                        <Typography variant="h6">{jobDetail.role} at {jobDetail.company}</Typography>
+                        <Typography variant="h6">{jobDetail.j_role} at {jobDetail.p_companyname}</Typography>
                     </Grid>
 
                     <Grid className={classes.info} item xs={3}>
@@ -167,31 +160,7 @@ const SearchResults = () => {
                 <Divider />
                 <Grid className={classes.about} container>
                     <Grid item>
-                        <Typography align="left" variant="subtitle1">
-                            Responsibilities
-                        </Typography>
-                        <Typography align="justify" variant="body1">
-                            <ul>
-                                <li>
-                                    Develop a Google Paid Search Marketing Strategy along with other strategies to allow for high level of customer conversions.
-                                </li>
-                                <li>
-                                    Use search engine optimization (SEO) and pay-per-click (PPC) strategies to develop a comprehensive search engine marketing (SEM) plan.
-                                </li>
-                                <li>
-                                    Drive Web Traffic and Lead Generation.
-                                </li>
-                                <li>
-                                    Create and measure targeted SEM ad campaigns to drive web traffic and improve overall lead generation.
-                                </li>
-                                <li>
-                                    Optimize ROI. Measure, analyze, and adjust SEM campaigns using Google Analytics and Google Ads to ensure maximum returns.
-                                </li>
-                                <li>
-                                    Effectively use Google Analytics with past and proven track record measuring the success of your marketing activities.
-                                </li>
-                            </ul>
-                        </Typography>
+                        {parse(jobDetail.j_description)}
                     </Grid>
                 </Grid>
             </Grid>

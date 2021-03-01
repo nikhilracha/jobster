@@ -63,7 +63,6 @@ export const PartnerLoginSchema = Yup.object().shape({
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')
         .required('Required'),
-
 });
 
 
@@ -113,3 +112,15 @@ export const PartnerSignupSchema =
             .max(50, 'Too Long!')
             .required('Required'),
     })
+
+
+export const SearchBarSchema = Yup.object().shape({
+    sterm: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    sloc: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+});
