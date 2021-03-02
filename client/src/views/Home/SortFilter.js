@@ -72,7 +72,7 @@ const SortFilter = (props) => {
     const filter = () => {
         var filtered = [];
         data.filter(function (el) {
-            if (el.p_companyname === company || el.j_type) filtered.push(el)
+            if (el.p_companyname === company || el.j_type === jobtype) filtered.push(el)
             return filtered;
         });
         props.filterHandler(filtered);
