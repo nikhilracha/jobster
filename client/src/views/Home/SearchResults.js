@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
         height: 530,
-        width: '100%'
+        width: '100%',
+        overflow: 'scroll',
     },
     item_paper: {
         padding: theme.spacing(1),
