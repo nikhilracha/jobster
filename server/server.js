@@ -5,7 +5,7 @@ const cors = require("cors");
 var user = require('./routes/user');
 var partner = require('./routes/partner');
 var corefs = require('./routes/corefs');
-
+var admin = require('./routes/admin');
 
 var router = express.Router();
 var app = express();
@@ -34,3 +34,4 @@ router.post('/p-register', partner.register);//Partner login route
 
 router.post('/search', corefs.search);//postings search
 
+router.post('/a-login', admin.login);//Admin login route
