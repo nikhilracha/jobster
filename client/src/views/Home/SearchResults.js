@@ -90,7 +90,8 @@ const SearchResults = (props) => {
     const [activeRow, setActiveRow] = React.useState(0);
     const [jobData, setJobData] = React.useState(data);
 
-    console.log("Search results props", props)
+    console.log("Search results props", props);
+    console.log("Search")
 
 
 
