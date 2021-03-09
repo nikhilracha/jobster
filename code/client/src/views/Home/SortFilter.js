@@ -15,6 +15,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import uniqWith from "lodash/uniqWith";
+import uniqBy from "lodash/uniqBy";
+import isEqual from "lodash/isEqual";
+
 
 import SortIcon from '@material-ui/icons/Sort';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -42,12 +46,15 @@ const SortFilter = (props) => {
 
     const data = props.data
 
+
     const [open, setOpen] = React.useState(false);
+    const [btn, setBtn] = React.useState(true)
     const [company, setCompany] = React.useState('');
     const [jobtype, setJobType] = React.useState('');
 
     const handleChange = (event) => {
         setCompany((event.target.value) || '');
+
     };
 
     const handleJobChange = (event) => {
@@ -58,6 +65,7 @@ const SortFilter = (props) => {
         setCompany('')
         setJobType('')
         props.filterHandler(data);
+        setOpen(false);
     }
 
     const handleClickOpen = () => {
@@ -76,8 +84,11 @@ const SortFilter = (props) => {
             return filtered;
         });
         props.filterHandler(filtered);
+        console.log("Filtered data", filtered)
         setOpen(false);
     }
+
+
 
     return (
         <>
@@ -104,12 +115,11 @@ const SortFilter = (props) => {
                                 onChange={handleChange}
                                 input={<Input />}
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                {data.map((x, i) => (
-                                    <MenuItem value={x.p_companyname}>{x.p_companyname}</MenuItem>
-                                ))}
+
+                                {
+                                    uniqBy(data, 'p_companyname').map((x, i) => (
+                                        <MenuItem value={x.p_companyname}>{x.p_companyname}</MenuItem>
+                                    ))}
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -125,16 +135,16 @@ const SortFilter = (props) => {
                             >
                                 <MenuItem value={'full-time'}>Full-time</MenuItem>
                                 <MenuItem value={'part-time'}>Part-time</MenuItem>
-                                <MenuItem value={'Internship'}>Internship</MenuItem>
+                                <MenuItem value={'internship'}>Internship</MenuItem>
                             </Select>
                         </FormControl>
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleReset} size="small" color="primary">
+                    <Button onClick={handleReset} disabled={company === '' && jobtype === '' ? true : false} size="small" color="primary">
                         Reset
                     </Button>
-                    <Button variant="outlined" size="small" onClick={filter} color="primary">
+                    <Button variant="outlined" disabled={company === '' && jobtype === '' ? true : false} size="small" onClick={filter} color="primary">
                         Submit
                     </Button>
                 </DialogActions>

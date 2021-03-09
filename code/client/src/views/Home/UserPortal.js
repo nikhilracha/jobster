@@ -15,14 +15,28 @@ import setAuthToken from "../../utils/setAuthToken";
 import { setCurrentUser } from "../../actions/authActions";
 import jwt_decode from "jwt-decode";
 import store from "../../store";
+import graphic from "../../assets/img/graphic.png"
+import g2 from "../../assets/img/g2.jpg"
 
 const useStyles = makeStyles((theme) => ({
+    main: {
+        height: '100vh',
+        backgroundImage: `url(${g2})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+    },
     root: {
-        flexGrow: 1,
-        marginTop: '200px',
+        //flexGrow: 1,
+        paddingTop: '100px',
     },
     card: {
         width: '97%'
+    },
+    photo: {
+        height: '300px',
+        width: '400px'
+
     }
 }));
 
@@ -64,7 +78,7 @@ function UserPortal(props) {
 
 
     return (
-        <>
+        <div className={classes.main}>
             {/* <Header
                 brand="JOBSTER"
                 rightLinks={props.auth.isAuthenticated ? <HeaderLinksOut user={props.auth.user} /> : <HeaderLinks />}
@@ -88,10 +102,13 @@ function UserPortal(props) {
                     <Grid item xs={6}>
                         <SearchBar />
                     </Grid>
+                    <Grid item >
+                        <img className={classes.photo} src={graphic} />
+                    </Grid>
                 </Grid>
             </div>
             <Footer />
-        </>
+        </div>
     );
 }
 
