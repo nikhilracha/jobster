@@ -6,8 +6,8 @@ import {
   Container,
   Typography
 } from '@material-ui/core';
-// import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
+
+
 
 const theme = createMuiTheme({
   palette: {
@@ -18,14 +18,14 @@ const theme = createMuiTheme({
       default: "#f4f5fd"
     },
   },
-  
-  props:{
-    MuiIconButton:{
-      disableRipple:true
+
+  props: {
+    MuiIconButton: {
+      disableRipple: true
     }
   },
-  form:{
-    
+  form: {
+
   }
 })
 
@@ -42,18 +42,18 @@ function A_home() {
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.appMain}>
-        <Header /> 
+        <Header />
         <Box
-        display="flex"
-        flexDirection="column"
-        height="100%"
-        justifyContent="center"
-        marginTop='100px'
-      >
-        <Container maxWidth="sm">
-          <Typography variant ="h3" >Welcome to Advertisement Mangement Homepage!</Typography>
-        </Container>
-      </Box>
+          display="flex"
+          flexDirection="column"
+          height="100%"
+          justifyContent="center"
+          marginTop='100px'
+        >
+          <Container maxWidth="sm">
+            <Typography variant="h3" >Welcome to Advertisement Mangement Homepage!</Typography>
+          </Container>
+        </Box>
       </div>
       <CssBaseline />
     </ThemeProvider>

@@ -103,7 +103,7 @@ function UserPortal(props) {
                         <SearchBar />
                     </Grid>
                     <Grid item >
-                        <img className={classes.photo} src={graphic} />
+                        <img alt="jobster" className={classes.photo} src={graphic} />
                     </Grid>
                 </Grid>
             </div>

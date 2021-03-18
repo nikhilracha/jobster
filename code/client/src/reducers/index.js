@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 
 import authReducer from "./authReducer";
+import coreReducer from "./coreReducer";
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
 const appReducer = combineReducers({
     /* your app’s top-level reducers */
     auth: authReducer,
+    postings: coreReducer,
     loadingBar: loadingBarReducer,
 })
 

@@ -91,13 +91,17 @@ const SearchResults = (props) => {
     const classes = useStyles();
 
 
-    let data = has(props, 'location.state.postings') ? props.location.state.postings : [];
+    //let data = has(props, 'location.state.postings') ? props.location.state.postings : [];
+    let data = props.location.state.postings;
     const [activeRow, setActiveRow] = React.useState(0);
     const [jobData, setJobData] = React.useState(data);
 
     console.log("Search results props", props);
 
-
+    React.useEffect(() => {
+        setJobData(data);
+        setActiveRow(0)
+    }, [data]);
 
     function renderRow(props) {
         const { data, index, style } = props;
@@ -122,7 +126,7 @@ const SearchResults = (props) => {
                                             {data[index].p_companyname}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary">
-                                            {data[index].p_state}
+                                            {data[index].state}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -138,10 +142,8 @@ const SearchResults = (props) => {
     }
 
     const DetailRow = (props) => {
-        const { index } = props;
-
-
-        const jobDetail = jobData[activeRow] || jobData[0];
+        console.log("In detail jobData", props.data)
+        const jobDetail = props.data[activeRow]//jobData[activeRow] || jobData[0];
         console.log("in detail", jobDetail)
 
         return (
@@ -191,12 +193,12 @@ const SearchResults = (props) => {
                         <SearchBar />
                     </Grid>
 
-                    {data.length === 0 ?
+                    {props.location.state.search === "Not found" ?
                         <Grid container
                             direction="row"
                             justify="center"
                             alignItems="center">
-                            <Grid xs={6} item><img className={classes.photo} src={g3} /></Grid>
+                            <Grid xs={6} item><img alt="no-results" className={classes.photo} src={g3} /></Grid>
                             <Grid xs={6} item><Typography variant="h4">No results! Try again?</Typography></Grid>
                         </Grid>
                         :
@@ -223,7 +225,7 @@ const SearchResults = (props) => {
                             </Grid>
                             <Grid item xs={8}>
                                 <Paper className={classes.paper}>
-                                    <DetailRow />
+                                    <DetailRow data={jobData} />
                                 </Paper>
                             </Grid>
                         </>

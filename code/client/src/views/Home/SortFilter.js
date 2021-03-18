@@ -1,10 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,9 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import uniqWith from "lodash/uniqWith";
+
 import uniqBy from "lodash/uniqBy";
-import isEqual from "lodash/isEqual";
+
 
 
 import SortIcon from '@material-ui/icons/Sort';
@@ -48,7 +47,6 @@ const SortFilter = (props) => {
 
 
     const [open, setOpen] = React.useState(false);
-    const [btn, setBtn] = React.useState(true)
     const [company, setCompany] = React.useState('');
     const [jobtype, setJobType] = React.useState('');
 
@@ -118,7 +116,7 @@ const SortFilter = (props) => {
 
                                 {
                                     uniqBy(data, 'p_companyname').map((x, i) => (
-                                        <MenuItem value={x.p_companyname}>{x.p_companyname}</MenuItem>
+                                        <MenuItem key={i} value={x.p_companyname}>{x.p_companyname}</MenuItem>
                                     ))}
                             </Select>
                         </FormControl>
