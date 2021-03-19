@@ -11,7 +11,7 @@ const PostJob = () => {
         <>
             <p>Post a job posting here</p>
             <div className="App">
-                <h2>Using CKEditor 5 build in React</h2>
+                <h4>Enter Job Description</h4>
                 <CKEditor
                     editor={ClassicEditor}
                     data={text}

@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import SortFilter from './SortFilter';
+import Footer from '../../components/Footer/Footer'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -232,6 +233,7 @@ const SearchResults = (props) => {
                     }
                 </Grid>
             </Container>
+
         </div>
     )
 

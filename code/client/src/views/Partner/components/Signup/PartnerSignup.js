@@ -143,13 +143,16 @@ function PartnerSignup(props) {
 
                                     props.asyncPartnerRegister(values)
                                         .then(res => {
-                                            actions.setErrors(res);
-                                            actions.setSubmitting(false);
-                                            console.log("response", res);
-                                            setOpen(true);
-                                            setEnd(true)
                                             if (res.error) {
-                                                console.log("error in login", res.error)
+                                                console.log("error in Signup", res.error)
+                                                actions.setSubmitting(false);
+                                                actions.setErrors(res.error);
+                                            }
+                                            else {
+                                                console.log("response", res);
+                                                setOpen(true);
+                                                setEnd(true)
+                                                actions.setSubmitting(false);
                                             }
                                         })
                                 }}

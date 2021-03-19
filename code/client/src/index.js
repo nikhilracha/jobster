@@ -21,6 +21,7 @@ import SearchResults from 'views/Home/SearchResults';
 import PostJob from './views/Home/PostJob';
 import App from 'views/Admin/App';
 import A_home from 'views/Admin/A_home';
+import Profile from 'views/Home/components/Profile/Profile';
 
 
 var hist = createBrowserHistory();
@@ -40,8 +41,9 @@ ReactDOM.render(
           <Route path="/FAQ" component={FAQ} />
           <Route path="/testh" component={Testh} />
           <Route path="/post" component={PostJob} />
-          <Route path="/admin" component={App} /> 
+          <Route path="/admin" component={App} />
           <Route path="/a_home" component={A_home} />
+          <Route path="/profile" component={Profile} />
           <Route path="/" component={UserPortal} />
         </Switch>
         {/* </Router> */}

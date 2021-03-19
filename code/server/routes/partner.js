@@ -28,6 +28,7 @@ exports.register = async function (req, res) {
         "p_zip": req.body.zip,
         "p_country": req.body.country,
         "p_companyname": req.body.company,
+        "p_company_logo": "",
         "created_at": new Date()
     }
     dbConn.query("SELECT * FROM PARTNER WHERE p_email = ?", [req.body.email], async function (error, results, fields) {
@@ -44,7 +45,7 @@ exports.register = async function (req, res) {
                     if (error) {
                         console.log("wsd", error)
                         errors.email = "Unable to register, Please try again!";
-                        return res.status(400).json(errors);
+                        return res.status(400).json({ error: errors });
                     } else {
                         res.json({
                             status: true,
