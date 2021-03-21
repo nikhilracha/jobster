@@ -272,7 +272,6 @@ exports.createProfile = async function (req, res) {
 
 exports.modifyUserProfile = async function (req, res) {
     const errors = {}
-
     console.log("From body", req.body);
     let id = req.body.u_ID;
     let u_firstname = req.body.u_firstname;
@@ -297,54 +296,39 @@ exports.modifyUserProfile = async function (req, res) {
                 res.json({
                     success: true,
                 });
-
-
-                // dbConn.query("SELECT * FROM USER WHERE u_email = ?", [u_email], async function (error, results, fields) {
-                //     if (error) {
-                //         res.send({
-                //             "code": 400,
-                //             "failed": error
-                //         })
-                //     } else {
-                //         if (results.length > 0) {
-                //             //user matched
-                //             const payload = {
-                //                 id: results[0].u_ID,
-                //                 fname: results[0].u_firstname,
-                //                 lname: results[0].u_lastname,
-                //                 email: results[0].u_email,
-                //                 phone: results[0].u_phone,
-                //                 dob: results[0].u_dob,
-                //                 street: results[0].u_street,
-                //                 city: results[0].u_city,
-                //                 state: results[0].u_state,
-                //                 zip: results[0].u_zip,
-                //                 profstatus: results[0].u_profstatus
-                //             };
-
-                //             //Sign the token
-                //             jwt.sign(
-                //                 payload,
-                //                 keys.secretOrKey,
-                //                 { expiresIn: 3600 },
-                //                 (err, token) => {
-                //                     res.json({
-                //                         tkn_type: "user",
-                //                         success: true,
-                //                         token: "Bearer " + token
-                //                     });
-                //                 }
-                //             );
-
-                //         }
-                //     }
-                // });
-
             }
         }
     });
+}
 
+exports.modifyUserEducationProfile = async function (req, res) {
+    const errors = {}
 
+    console.log("From body", req.body);
+    let id = req.body.u_ID;
+    let u_ug = req.body.u_ug;
+    let u_ug_gpa = req.body.u_ug_gpa;
+    let u_grad = req.body.u_grad;
+    let u_grad_gpa = req.body.u_grad_gpa;
+    let u_major = req.body.u_major;
+    let u_conc = req.body.u_conc;
+    dbConn.query(`update UserProfile SET u_ug = '${u_ug}', u_ug_gpa = '${u_ug_gpa}', u_grad = '${u_grad}', u_grad_gpa = '${u_grad_gpa}', u_major = '${u_major}', u_conc = '${u_conc}' where u_ID = ${id} `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            errors.email = "Unable to update education profile, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+
+            console.log("rrr", results)
+
+            if (results.affectedRows > 0) {
+
+                res.json({
+                    success: true,
+                });
+            }
+        }
+    });
 }
 
 
