@@ -168,6 +168,59 @@ export const asyncLogin = userData => {
 }
 
 
+export const asyncTokenUpdate = userData => {
+    return async dispatch => {
+        dispatch(userRequest(userData));
+        try {
+            const response = await axios.post("http://localhost:5000/api/tkn-update", userData, { timeout: 10000 });
+            console.log("userdata", userData)
+            const { token, tkn_type } = response.data;
+            console.log("loggigin", response)
+            if (tkn_type === 'user') {
+                if (token) {
+                    //set token to local storage
+                    localStorage.removeItem("jwtToken");
+                    localStorage.removeItem("lastUpdtTime");
+                    localStorage.setItem("jwtToken", token);
+                    setAuthToken(false);
+                    //set token to auth header
+                    setAuthToken(token);
+                    //Decode Token to get user data
+                    const decoded = jwt_decode(token);
+                    //Set the current user
+                    setTimeout(() => {
+                        dispatch(setCurrentUser(decoded));
+                    }, 1500)
+                    return { status: "logged-in" }
+                }
+            }
+            // dispatch(setCurrentUser(decoded));
+        }
+
+        catch (errors) {
+            console.log("errors in async login", errors.request);
+            if (errors.message === 'Network Error') {
+                return delay(5000).then(function () {
+                    console.log("Network Error", errors);
+                    dispatch(networkErrorHandler(errors, SET_USER_FAILURE));
+                    return { error: "Trouble with the network" };
+                });
+
+            } else {
+                return delay(5000).then(function () {
+                    dispatch(errorHandler(errors, SET_USER_FAILURE));
+                    if (errors.code === 'ECONNABORTED') {
+                        return { error: "Time out retry again" }
+                    }
+                    return errors.response.data;
+                });
+            }
+
+        }
+    }
+}
+
+
 export const asyncRegister = userData => {
     return async dispatch => {
         dispatch(userSignupRequest(userData));

@@ -7,6 +7,9 @@ var partner = require('./routes/partner');
 var corefs = require('./routes/corefs');
 var admin = require('./routes/admin');
 
+let multer = require('multer');
+let upload = multer({ dest: 'uploads/' });
+
 var router = express.Router();
 var app = express();
 
@@ -28,6 +31,7 @@ router.get('/', function (req, res) {
 
 router.post('/login', user.login);//Login route
 router.post('/register', user.register);//Register route
+router.post('/tkn-update', user.tkn_update);//Login route
 
 router.post('/p-login', partner.login);//Partner login route
 router.post('/p-register', partner.register);//Partner login route
@@ -35,3 +39,8 @@ router.post('/p-register', partner.register);//Partner login route
 router.post('/search', corefs.search);//postings search
 
 router.post('/a-login', admin.login);//Admin login route
+
+router.post('/create-profile', upload.fields([
+    { name: "u_profpic" },
+    { name: "u_resume" }
+]), user.createProfile);//Register route

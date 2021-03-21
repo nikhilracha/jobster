@@ -1,40 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
-  // Box,
+  Grid,
   Card,
   CardContent,
-  Grid,
   Divider,
   CardHeader,
   makeStyles,
-  Typography
+  Box,
+  IconButton,
+  TextField,
 } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import ClearIcon from '@material-ui/icons/Clear';
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    alignItems: 'center',
-    textAlign: 'left'
-  },
-  avatar: {
-    height: 170,
-    width: 170,
-    alignSelf: 'center',
-    marginLeft: '30px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 5px',
-    transform: 'scale(1.5)'
+    marginTop: theme.spacing(8)
   }
 }));
 
 const ProfileDetails = ({ className, ...rest }) => {
 
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+
+
+  const [edit, setEdit] = React.useState(true);
+
+  const onEdit = () => {
+    setEdit(!edit)
+  }
+  const onSave = () => {
+    setEdit(!edit)
+  }
+
+
+
+  const user = {
+    u_undergrad: "Vignan Bharathi Institute of Technology",
+    u_undergrad_gpa: "3.7",
+    u_grad: "Pace University",
+    u_grad_gpa: "3.8",
+    u_major: "Computer Science",
+    u_concentration: "Software Development"
+  }
 
   return (
     <Card
@@ -42,70 +53,59 @@ const ProfileDetails = ({ className, ...rest }) => {
       {...rest}
     >
       <CardHeader
-        title="Skills"
+        title="Education"
+        action={
+          <>
+            {edit ? <></> : <IconButton onClick={onSave} aria-label="edit">
+              <SaveIcon />
+            </IconButton>}
+            {edit ? <IconButton onClick={onEdit} aria-label="edit">
+              <EditIcon />
+            </IconButton> : <IconButton onClick={onEdit} aria-label="edit">
+                <ClearIcon />
+              </IconButton>}
+
+          </>
+        }
       />
       <Divider />
       <CardContent>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              JavaScript
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              Java
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              React.js
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              Node.js
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              MongoDb
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              Python
-            </Typography>
-            <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h5"
-            >
-              {bull}
-              SQL
-            </Typography>
-          </Grid>
-        </Grid>
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="row"
+        >
+          <Box
+            // alignItems="left"
+            display="flex"
+            flexDirection="column"
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={6} md={6} lg={6} >
+                {/* undergrad */}
+                <TextField id="undergrad" label="Undergraduate" value={`${user.u_undergrad}`} disabled={edit} fullWidth={true} />
+              </Grid>
+              <Grid item xs={6} md={6} lg={6} >
+                {/* undergrad_gpa */}
+                <TextField id="undergrad_gpa" label="Undergraduate GPA" value={user.u_undergrad_gpa} disabled={edit} fullWidth={true} />
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={6} md={6} lg={6} >
+                {/* undergrad */}
+                <TextField id="u_grad" label="Graduate" value={`${user.u_grad}`} disabled={edit} fullWidth={true} />
+              </Grid>
+              <Grid item xs={6} md={6} lg={6} >
+                {/* undergrad_gpa */}
+                <TextField id="u_grad-gpa" label="Graduate GPA" value={user.u_grad_gpa} disabled={edit} fullWidth={true} />
+              </Grid>
+            </Grid>
+            {/* u_major */}
+            <TextField id="u_major" label="Major" value={user.u_major} disabled={edit} fullWidth={true} />
+            {/*u_concentration*/}
+            <TextField id="u_concentration" label="Concentration" value={user.u_concentration} disabled={edit} fullWidth={true} />
+          </Box>
+        </Box>
       </CardContent>
       <Divider />
     </Card>

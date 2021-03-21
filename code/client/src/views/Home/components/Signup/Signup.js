@@ -118,7 +118,7 @@ function CheckoutPage(props) {
                                 state: '',
                                 zip: '',
                                 country: '',
-                                substatus: '0'
+                                profstatus: '0'
                             }}
                             validationSchema={currentValidationSchema}
                             onSubmit={_handleSubmit}

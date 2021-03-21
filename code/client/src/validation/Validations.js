@@ -124,3 +124,17 @@ export const SearchBarSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
 });
+
+export const ProfileFormSchema = Yup.object().shape({
+    u_undergrad: Yup.string()
+        .min(0, 'Too Short!')
+        .max(35, 'Too Long!'),
+    u_undergrad_gpa: Yup.number()
+        .typeError("It should be a number"),
+    u_grad: Yup.string()
+        .min(0, 'Too Short!')
+        .max(35, 'Too Long!'),
+    u_grad_gpa: Yup.number()
+        .typeError("It should be a number"),
+
+})

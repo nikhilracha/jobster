@@ -53,6 +53,7 @@ function Header(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const history = useHistory();
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -66,7 +67,15 @@ function Header(props) {
         store.dispatch(logoutUser());
     }
 
-    const history = useHistory();
+    const handleProfile = () => {
+        history.push('/profile')
+    }
+
+    const handleHome = () => {
+        history.push('/')
+    }
+
+
 
 
     const handleDrawerToggle = () => {
@@ -89,7 +98,7 @@ function Header(props) {
                             alignItems="center"
                         >
                             <Grid container item xs={10} spacing={1}>
-                                <h4>Hello {props.user.name}</h4>
+                                <h4>Hello {props.user.lname}</h4>
                             </Grid>
                             <Grid container item xs={2} spacing={1}>
                                 <IconButton
@@ -116,8 +125,8 @@ function Header(props) {
                                     open={open}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                                    <MenuItem onClick={handleHome}>Home</MenuItem>
+                                    <MenuItem onClick={handleProfile}>Profile</MenuItem>
                                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                 </Menu>
                             </Grid>
@@ -143,7 +152,7 @@ function Header(props) {
                         <div className={classes.appResponsive}>
                             <List className={classes.list}>
                                 <ListItem className={classes.listItem}>
-                                    <h4>Hello {props.user.name}</h4>
+                                    <h4>Hello {props.user.lname}</h4>
                                 </ListItem>
                                 <ListItem className={classes.listItem}>
                                     <IconButton

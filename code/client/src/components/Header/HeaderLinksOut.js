@@ -15,6 +15,7 @@ import { AccountCircle } from "@material-ui/icons";
 import store from '../../store';
 import { logoutUser } from '../../actions/authActions';
 
+import { useHistory } from 'react-router-dom';
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -23,6 +24,7 @@ export default function HeaderLinksOut(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const history = useHistory();
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,11 +32,18 @@ export default function HeaderLinksOut(props) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        console.log("qwedaaeds")
     };
 
+    const handleProfile = () => {
+        history.push('/profile')
+        console.log("Push to profile")
+    }
     const handleLogout = () => {
         store.dispatch(logoutUser());
     }
+
+    console.log("In header link out")
 
     return (
         <>
@@ -67,7 +76,7 @@ export default function HeaderLinksOut(props) {
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>

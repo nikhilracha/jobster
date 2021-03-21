@@ -6,7 +6,8 @@ import jwt_decode from "jwt-decode";
 import {
     Container,
     Grid,
-    makeStyles
+    makeStyles,
+    Typography
 } from '@material-ui/core';
 
 import setAuthToken from "../../../../utils/setAuthToken";
@@ -15,10 +16,11 @@ import store from "../../../../store";
 
 import Header from '../../components/Header/Header';
 import HeaderLinksOut from '../../components/Header/HeaderLinksOut';
-import Exp from './Exp';
+import Resume from './Resume';
 import ProfileDetails from './ProfileDetails';
 import ProfileComponent from './ProfileComponent';
-
+import ProfileForm from './ProfileForm';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     console.log("This is props", props)
 
@@ -66,6 +69,9 @@ const Profile = (props) => {
         if (props.auth.isAuthenticated) {
             console.log("true");
         }
+        else {
+            history.replace('/')
+        }
     });
 
 
@@ -74,36 +80,59 @@ const Profile = (props) => {
         <>
             {props.auth.isAuthenticated ? <HeaderLinksOut user={props.auth.user} /> : <Header />}
             <div className={classes.root}>
-                <Container maxWidth="lg">
-                    <Grid
-                        container
-                        spacing={3}
-                    >
-                        <Grid
-                            item
-                            lg={5}
-                            md={6}
-                            xs={12}
-                        >
-                            <ProfileComponent />
-                        </Grid>
-                        <Grid
-                            item
-                            lg={7}
-                            md={6}
-                            xs={12}
-                        >
-                            <Exp />
-                        </Grid>
-                        <Grid
-                            item
-                            xs={5}
-                        >
-                            <ProfileDetails />
-                        </Grid>
+                {parseInt(props.auth.user.profstatus) ?
 
-                    </Grid>
-                </Container>
+                    <Container maxWidth="lg">
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                item
+                                lg={6}
+                                md={6}
+                                xs={12}
+                            >
+                                <ProfileComponent />
+                            </Grid>
+                            <Grid
+                                item
+                                lg={6}
+                                md={6}
+                                xs={12}
+                            >
+                                <ProfileDetails />
+                            </Grid>
+                            <Grid
+                                item
+                                lg={12}
+                                md={12}
+                                xs={12}
+                            >
+                                <Resume />
+                            </Grid>
+
+                        </Grid>
+                    </Container>
+
+                    :
+                    <Container maxWidth="lg">
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                item
+                                lg={12}
+                                md={12}
+                                xs={12}
+                            >
+                                <ProfileForm id={props.auth.user.id} />
+                            </Grid>
+                        </Grid>
+                    </Container>
+
+                }
             </div>
         </>
     )
