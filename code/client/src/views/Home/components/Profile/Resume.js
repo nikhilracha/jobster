@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 import {
-  Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -14,13 +14,18 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import ClearIcon from '@material-ui/icons/Clear';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 
 const useStyles = makeStyles((theme) => ({
 
+  input: {
+    display: 'none'
+  }
+
 }));
 
-const Resume = ({ className, ...rest }) => {
+const Resume = (props, { className, ...rest }) => {
   const classes = useStyles();
 
   const [edit, setEdit] = React.useState(true);
@@ -31,6 +36,8 @@ const Resume = ({ className, ...rest }) => {
   const onSave = () => {
     setEdit(!edit)
   }
+
+  console.log("Resume", props)
 
   const user = {
     u_resume: "https://res.cloudinary.com/dxg3rmriu/image/upload/v1616183675/resume.pdf"
@@ -46,20 +53,55 @@ const Resume = ({ className, ...rest }) => {
         title="Resume"
         action={
           <>
-            {edit ? <></> : <IconButton onClick={onSave} aria-label="edit">
-              <SaveIcon />
-            </IconButton>}
-            {edit ? <IconButton onClick={onEdit} aria-label="edit">
-              <EditIcon />
-            </IconButton> : <IconButton onClick={onEdit} aria-label="edit">
-                <ClearIcon />
-              </IconButton>}
+
+            {props.u_resume == undefined
+              ?
+              <>
+                <input
+                  name="u_resume"
+                  accept=".pdf"
+                  className={classes.input}
+                  id="u_resume"
+                  type="file"
+                  onChange={(event) => {
+                    console.log("event", event)
+                    //setFieldValue("u_resume", event.currentTarget.files[0]);
+                  }}
+                />
+                <label htmlFor="u_resume">
+                  <Button
+                    variant="contained"
+                    color="default"
+                    className={classes.button}
+                    component="span"
+                    startIcon={<CloudUploadIcon />}
+                  >
+                    Upload
+              </Button>
+                </label>
+
+              </>
+              :
+              edit ? <><IconButton onClick={onEdit} aria-label="edit">
+                <EditIcon />
+              </IconButton></> : <IconButton onClick={onEdit} aria-label="edit">
+                  <ClearIcon />
+                </IconButton>}
           </>
         }
       />
       <Divider />
       <CardContent>
-        <embed src={user.u_resume} width="500" height="375"></embed>
+        {props.u_resume == undefined
+          ?
+          <>
+            <p>No resume uploaded!</p>
+          </>
+
+          :
+          <embed src={props.u_resume} width="500" height="375"></embed>
+        }
+
       </CardContent>
       <Divider />
     </Card>

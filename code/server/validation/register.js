@@ -15,7 +15,7 @@ module.exports = function validateRegisterInput(data) {
     data.state = !isEmpty(data.state) ? data.state : "";
     data.zip = !isEmpty(data.zip) ? data.zip : "";
     data.country = !isEmpty(data.country) ? data.country : "";
-    data.substatus = !isEmpty(data.substatus) ? data.substatus : "";
+    data.profstatus = !isEmpty(data.profstatus) ? data.profstatus : "";
 
 
 
@@ -103,8 +103,8 @@ module.exports = function validateRegisterInput(data) {
         }
     }
 
-    if (Validator.isEmpty(data.substatus)) {
-        errors.substatus = "Subscription field is required";
+    if (Validator.isEmpty(data.profstatus)) {
+        errors.profstatus = "Profile status field is required";
     }
 
     return {

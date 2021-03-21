@@ -36,7 +36,7 @@ exports.register = async function (req, res) {
         "u_state": req.body.state,
         "u_zip": req.body.zip,
         "u_country": req.body.country,
-        "u_profstatus": req.body.u_profstatus,
+        "u_profstatus": req.body.profstatus,
         "created_at": new Date()
     }
     dbConn.query("SELECT * FROM USER WHERE u_email = ?", [req.body.email], async function (error, results, fields) {
@@ -136,6 +136,7 @@ exports.login = async function (req, res) {
 }
 
 exports.tkn_update = async function (req, res) {
+    console.log("body", req.body)
     var email = req.body.email;
 
     dbConn.query("SELECT * FROM USER WHERE u_email = ?", [email], async function (error, results, fields) {
@@ -260,13 +261,131 @@ exports.createProfile = async function (req, res) {
                                 }
                             });
                         }
-
                     });
-
-
                 });
             }
         }
     }
     );
+}
+
+
+exports.modifyUserProfile = async function (req, res) {
+    const errors = {}
+
+    console.log("From body", req.body);
+    let id = req.body.u_ID;
+    let u_firstname = req.body.u_firstname;
+    let u_lastname = req.body.u_lastname;
+    let u_email = req.body.u_email;
+    let u_phone = req.body.u_phone;
+    let u_street = req.body.u_street;
+    let u_city = req.body.u_city;
+    let u_state = req.body.u_state;
+    let u_zip = req.body.u_zip;
+    dbConn.query(`update USER SET u_firstname = '${u_firstname}', u_lastname = '${u_lastname}', u_email = '${u_email}', u_phone = '${u_phone}', u_street = '${u_street}', u_city = '${u_city}', u_state = '${u_state}', u_zip = ${u_zip} where u_ID = ${id} `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            errors.email = "Unable to update profile, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+
+            console.log("rrr", results)
+
+            if (results.affectedRows > 0) {
+
+                res.json({
+                    success: true,
+                });
+
+
+                // dbConn.query("SELECT * FROM USER WHERE u_email = ?", [u_email], async function (error, results, fields) {
+                //     if (error) {
+                //         res.send({
+                //             "code": 400,
+                //             "failed": error
+                //         })
+                //     } else {
+                //         if (results.length > 0) {
+                //             //user matched
+                //             const payload = {
+                //                 id: results[0].u_ID,
+                //                 fname: results[0].u_firstname,
+                //                 lname: results[0].u_lastname,
+                //                 email: results[0].u_email,
+                //                 phone: results[0].u_phone,
+                //                 dob: results[0].u_dob,
+                //                 street: results[0].u_street,
+                //                 city: results[0].u_city,
+                //                 state: results[0].u_state,
+                //                 zip: results[0].u_zip,
+                //                 profstatus: results[0].u_profstatus
+                //             };
+
+                //             //Sign the token
+                //             jwt.sign(
+                //                 payload,
+                //                 keys.secretOrKey,
+                //                 { expiresIn: 3600 },
+                //                 (err, token) => {
+                //                     res.json({
+                //                         tkn_type: "user",
+                //                         success: true,
+                //                         token: "Bearer " + token
+                //                     });
+                //                 }
+                //             );
+
+                //         }
+                //     }
+                // });
+
+            }
+        }
+    });
+
+
+}
+
+
+exports.getProfile = async function (req, res) {
+    const errors = {};
+    let id = req.params.id;
+    console.log("get from body", id);
+
+    dbConn.query(`select USER.u_firstname, USER.u_lastname, USER.u_email, USER.u_phone, USER.u_dob, USER.u_street, USER.u_city, USER.u_state, USER.u_zip, UserProfile.u_profpic, UserProfile.u_resume, UserProfile.u_ug, UserProfile.u_ug_gpa, UserProfile.u_grad, UserProfile.u_grad_gpa, UserProfile.u_major, UserProfile.u_conc from USER inner join UserProfile ON USER.u_ID = UserProfile.u_ID WHERE USER.u_ID = ${id}; `, function (error, results, fields) {
+        if (error) {
+            errors.email = "Unable to find profile, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+
+            if (results.length > 0) {
+
+                //user matched
+                const payload = {
+                    u_firstname: results[0].u_firstname,
+                    u_lastname: results[0].u_lastname,
+                    u_email: results[0].u_email,
+                    u_phone: results[0].u_phone,
+                    u_dob: results[0].u_dob,
+                    u_street: results[0].u_street,
+                    u_city: results[0].u_city,
+                    u_state: results[0].u_state,
+                    u_zip: results[0].u_zip,
+                    u_profpic: results[0].u_profpic,
+                    u_resume: results[0].u_resume,
+                    u_undergrad: results[0].u_ug,
+                    u_undergrad_gpa: results[0].u_ug_gpa,
+                    u_grad: results[0].u_grad,
+                    u_grad_gpa: results[0].u_grad_gpa,
+                    u_major: results[0].u_major,
+                    u_concentration: results[0].u_conc,
+                };
+                res.json({
+                    success: true,
+                    payload: payload
+                });
+            }
+        }
+    });
 }

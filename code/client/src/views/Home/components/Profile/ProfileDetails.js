@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProfileDetails = ({ className, ...rest }) => {
+const ProfileDetails = (props, { className, ...rest }) => {
 
   const classes = useStyles();
 
@@ -38,15 +38,8 @@ const ProfileDetails = ({ className, ...rest }) => {
 
 
 
-  const user = {
-    u_undergrad: "Vignan Bharathi Institute of Technology",
-    u_undergrad_gpa: "3.7",
-    u_grad: "Pace University",
-    u_grad_gpa: "3.8",
-    u_major: "Computer Science",
-    u_concentration: "Software Development"
-  }
-
+  const user = props.user;
+  console.log("USer", props)
   return (
     <Card
       className={classes.root}

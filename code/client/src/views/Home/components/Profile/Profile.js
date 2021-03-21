@@ -2,6 +2,7 @@ import React from 'react'
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import {
     Container,
@@ -9,6 +10,7 @@ import {
     makeStyles,
     Typography
 } from '@material-ui/core';
+
 
 import setAuthToken from "../../../../utils/setAuthToken";
 import { setCurrentUser } from "../../../../actions/authActions";
@@ -36,6 +38,8 @@ const Profile = (props) => {
     const classes = useStyles();
     const history = useHistory();
 
+    const [profData, setProfData] = React.useState({})
+
     console.log("This is props", props)
 
 
@@ -51,18 +55,32 @@ const Profile = (props) => {
             // Set user and isAuthenticated
             store.dispatch(setCurrentUser(decoded));
 
+            axios({
+                method: "get",
+                url: "http://localhost:5000/api/profile/" + decoded.id,
+            })
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                    setProfData(response.data.payload)
+
+                })
+                .catch(function (error) {
+                    //handle error
+                    console.log(error);
+                });
+
             // Check for expired token
             const currentTime = Date.now() / 1000;
             if (decoded.exp < currentTime) {
-                //console.log("App.js is running inside if and if")
-                // Logout user
-                //store.dispatch(logoutUser());
-                // TODO: Clear current Profile
                 console.log("Session Expired")
                 // Redirect to login
                 // window.location.href = "/login";
             }
         }
+
+
+
     }, [])
 
     React.useEffect(() => {
@@ -70,7 +88,7 @@ const Profile = (props) => {
             console.log("true");
         }
         else {
-            history.replace('/')
+            // history.replace('/')
         }
     });
 
@@ -93,7 +111,7 @@ const Profile = (props) => {
                                 md={6}
                                 xs={12}
                             >
-                                <ProfileComponent />
+                                <ProfileComponent user={profData} />
                             </Grid>
                             <Grid
                                 item
@@ -101,7 +119,7 @@ const Profile = (props) => {
                                 md={6}
                                 xs={12}
                             >
-                                <ProfileDetails />
+                                <ProfileDetails user={profData} />
                             </Grid>
                             <Grid
                                 item
@@ -109,7 +127,7 @@ const Profile = (props) => {
                                 md={12}
                                 xs={12}
                             >
-                                <Resume />
+                                <Resume u_resume={profData.u_resume} />
                             </Grid>
 
                         </Grid>
