@@ -138,3 +138,19 @@ export const ProfileFormSchema = Yup.object().shape({
         .typeError("It should be a number"),
 
 })
+
+export const ProfileEditSchema = Yup.object().shape({
+    u_grad_gpa: Yup.number()
+        .typeError("It should be a number"),
+    u_ug_gpa: Yup.number()
+        .typeError("It should be a number"),
+})
+
+export const ProfileInfoSchema = Yup.object().shape({
+    u_phone: Yup.number()
+        .required(`Required`)
+        .typeError("It should be a number"),
+    u_zip: Yup.number()
+        .required(`Required`)
+        .typeError("It should be a number")
+})

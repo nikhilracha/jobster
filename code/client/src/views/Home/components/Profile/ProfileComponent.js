@@ -14,7 +14,7 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
-import { Formik } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
@@ -23,7 +23,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import { asyncTokenUpdate } from '../../../../actions/authActions'
 
-
+import { ProfileInfoSchema } from '../../../../validation/Validations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +53,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
   return (
     <Formik
       enableReinitialize
+      validationSchema={ProfileInfoSchema}
       initialValues={{
         u_ID: user.id,
         u_profpic: user.u_profpic,
@@ -160,6 +161,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_firstname}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
@@ -172,6 +174,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_lastname}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
@@ -186,6 +189,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_email}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={true}
                           fullWidth={true}
                         />
@@ -200,9 +204,11 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_phone}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
+                        <ErrorMessage name="u_phone" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
@@ -214,6 +220,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={user.u_dob == undefined ? "" : user.u_dob.split('T')[0]}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={true}
                           fullWidth={true}
                         />
@@ -228,6 +235,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_street}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
@@ -240,6 +248,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_city}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
@@ -254,6 +263,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_state}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
@@ -266,9 +276,11 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           label=""
                           value={values.u_zip}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
+                        <ErrorMessage name="u_zip" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                       </Grid>
                     </Grid>
                   </Box>

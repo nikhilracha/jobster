@@ -11,13 +11,15 @@ import {
   IconButton,
   TextField,
 } from '@material-ui/core';
-import { Formik } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import axios from "axios";
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import ClearIcon from '@material-ui/icons/Clear';
+
+import { ProfileEditSchema } from '../../../../validation/Validations';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +46,7 @@ const ProfileDetails = (props, { className, ...rest }) => {
   return (
     <Formik
       enableReinitialize
+      validationSchema={ProfileEditSchema}
       initialValues={{
         u_ID: user.id,
         u_ug: user.u_undergrad,
@@ -130,6 +133,9 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_ug"
                           name="u_ug"
                           label="Undergraduate"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_ug}
                           onChange={handleChange}
                           disabled={edit}
@@ -142,11 +148,16 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_ug_gpa"
                           name="u_ug_gpa"
                           label="Undergraduate GPA"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_ug_gpa}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
+                        <ErrorMessage name="u_ug_gpa" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
@@ -156,6 +167,9 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_grad"
                           name="u_grad"
                           label="Graduate"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_grad}
                           onChange={handleChange}
                           disabled={edit}
@@ -168,11 +182,16 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_grad_gpa"
                           name="u_grad_gpa"
                           label="Graduate GPA"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_grad_gpa}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           disabled={edit}
                           fullWidth={true}
                         />
+                        <ErrorMessage name="u_grad_gpa" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                       </Grid>
                     </Grid>
                     <Grid container spacing={3}>
@@ -181,6 +200,9 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_major"
                           name="u_major"
                           label="Major"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_major}
                           onChange={handleChange}
                           disabled={edit}
@@ -194,6 +216,9 @@ const ProfileDetails = (props, { className, ...rest }) => {
                           id="u_conc"
                           name="u_conc"
                           label="Concentration"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           value={values.u_conc}
                           onChange={handleChange}
                           disabled={edit}
