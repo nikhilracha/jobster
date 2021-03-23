@@ -89,7 +89,7 @@ function App() {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} autoComplete="off">
                 <Box mb={3}>
                   <Typography
                     color="textPrimary"

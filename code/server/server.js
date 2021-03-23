@@ -51,3 +51,8 @@ router.post('/create-profile', upload.fields([
     { name: "u_resume" }
 ]), user.createProfile);//Register route
 
+router.get('/clients', corefs.clients);//Get clients route
+router.get('/clients/:clientid', corefs.clientinfo);//Get client route
+router.get('/advert', corefs.advert);//Get advert route
+router.post('/advert', corefs.postad);//Post advert route
+
