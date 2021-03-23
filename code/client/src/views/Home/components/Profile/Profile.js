@@ -88,7 +88,7 @@ const Profile = (props) => {
             console.log("true");
         }
         else {
-            // history.replace('/')
+            history.replace('/')
         }
     });
 

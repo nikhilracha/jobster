@@ -35,6 +35,9 @@ router.post('/tkn-update', user.tkn_update);//user token route
 router.get('/profile/:id', user.getProfile); //user profile retrieval
 router.post('/update-profile', user.modifyUserProfile); //user profile info modification 
 router.post('/update-education-profile', user.modifyUserEducationProfile); //user education profile info modification 
+router.post('/update-resume', upload.fields([
+    { name: "u_resume" }
+]), user.modifyUserResume); //user resume info modification 
 
 router.post('/p-login', partner.login);//Partner login route
 router.post('/p-register', partner.register);//Partner login route
@@ -47,3 +50,4 @@ router.post('/create-profile', upload.fields([
     { name: "u_profpic" },
     { name: "u_resume" }
 ]), user.createProfile);//Register route
+

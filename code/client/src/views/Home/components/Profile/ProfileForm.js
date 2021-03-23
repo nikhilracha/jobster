@@ -131,22 +131,6 @@ const ProfileForm = (props, { ...rest }) => {
                             console.log(key[0] + ', ' + key[1]);
                         }
 
-
-                        // try {
-                        //     const response = axios.post("http://localhost:5000/api/create-profile", body, { 'content-type': 'multipart/form-data' });
-                        //     const { status } = response.data;
-                        //     console.log("loggigin", response)
-                        //     if (status) {
-                        //         history.replace('/profile')
-                        //     }
-                        // }
-
-                        // catch (errors) {
-                        //     console.log("errors in async register", errors.request);
-                        //     actions.setErrors({ u_concentration: "There is some trouble in registering profile" })
-
-                        // }
-
                         axios({
                             method: "post",
                             url: "http://localhost:5000/api/create-profile",
