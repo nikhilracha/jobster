@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import { LocationOn } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
@@ -17,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 
 import { SearchBarSchema } from '../../../../validation/Validations';
 import { asyncSearch } from '../../../../actions/coreActions';
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +28,15 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 250,
     },
+    margn:{
+        marginTop: 105,
+        marginBottom: 15
+    },
+    text:{
+        marginBottom: 10,
+        marginLeft: 60
+    },
+
     input: {
         marginLeft: theme.spacing(1),
         flex: 1,
@@ -36,12 +47,29 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         height: 28,
         margin: 4,
-    }
+    },
 }));
 
 function SearchBar(props) {
     const classes = useStyles();
     const history = useHistory();
+
+    let [responseData, setResponseData] = React.useState('');
+
+    React.useEffect(() => {
+        axios({
+            "method": "GET",
+            "url": "http://localhost:5000/api/advert",
+        })
+        .then((response) => {
+            setResponseData(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        console.log(responseData)
+    }, [])
 
     return (
         <>
@@ -75,7 +103,21 @@ function SearchBar(props) {
                         /* and other goodies */
                     }) => (
                             <form className={classes.form} onSubmit={handleSubmit} noValidate>
-                                <Grid container justify="center" spacing={2}>
+                                {/* <Box > */}
+                                {/* <Grid>
+                                
+                                </Grid> */}
+                                <Grid className={classes.margn}>
+                                <Typography className={classes.text}
+                                    color="textPrimary"
+                                    variant="h5"
+
+                                    className={classes.text}
+                                >
+                                    Find The Right Fit.
+                                </Typography>
+                                </Grid>
+                                <Grid container justify="center" spacing={2} >
                                     <Grid item>
                                         <Paper component="form" className={classes.root2}>
                                             <InputBase
@@ -118,7 +160,16 @@ function SearchBar(props) {
                                         <Button type="submit" size="large" variant="contained">Search</Button>
                                     </Grid>
                                 </Grid>
+                                <Grid container >
+                                    <div style={{width: '500px', margin: '0 auto'}}>
+                                        <div style={{textAlign: 'left'}}><small>Sponsored.{responseData.company}</small></div>
+                                        <div style={{textAlign: 'center'}}><a target="_blank" href={responseData.red_link}><img style={{width: '500px'}} src={responseData.imagelink}></img></a></div>
+                                    </div>
+                                </Grid>
+                                {/* </Box> */}
                             </form>
+
+                            
                         )}
                 </Formik>
 
