@@ -163,7 +163,7 @@ const Resume = (props, { className, ...rest }) => {
                   </>
 
                   :
-                  <embed src={props.u_resume} width="500" height="375"></embed>
+                  <embed src={props.u_resume} width="100%" height="375"></embed>
                 }
 
               </CardContent>
