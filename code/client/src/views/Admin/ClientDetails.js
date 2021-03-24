@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-
+import { useHistory } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
