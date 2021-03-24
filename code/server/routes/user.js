@@ -229,11 +229,10 @@ exports.createProfile = async function (req, res) {
 
                 Promise.all([promise, promise2]).then((url) => {
                     console.log("result", url)
-                    console.log("Request", req);
                     var profile = {
                         "u_ID": req.body.u_ID,
                         "u_profpic": url[0].prof_url,
-                        "u_resume": url[1].resume_url,
+                        "u_resume": url[1].u_resume,
                         "u_ug": req.body.u_undergrad,
                         "u_ug_gpa": req.body.u_undergrad_gpa,
                         "u_grad": req.body.u_grad,
@@ -303,7 +302,6 @@ exports.modifyUserProfile = async function (req, res) {
 
 exports.modifyUserEducationProfile = async function (req, res) {
     const errors = {}
-
     console.log("From body", req.body);
     let id = req.body.u_ID;
     let u_ug = req.body.u_ug;
@@ -318,17 +316,53 @@ exports.modifyUserEducationProfile = async function (req, res) {
             errors.email = "Unable to update education profile, Please try again!";
             return res.status(400).json(errors);
         } else {
-
             console.log("rrr", results)
-
             if (results.affectedRows > 0) {
-
                 res.json({
                     success: true,
                 });
             }
         }
     });
+}
+
+exports.modifyUserResume = async function (req, res) {
+    const errors = {}
+    console.log("From body", req.body);
+    let id = req.body.u_ID;
+
+    let promise = new Promise(function (resolve, reject) {
+        // Some imaginary 2000 ms timeout simulating a db call
+        setTimeout(() => {
+            if (req.files.u_resume) {
+                cloudinary.uploader.upload(req.files.u_resume[0].path, function (result) {
+                    resolve({ u_resume: result.url });
+                })
+            } else {
+                // If promise can not be fulfilled due to some errors like network failure
+                // reject(new Error({ msg: 'It does not work' }));
+                resolve({ u_resume: "" });
+            }
+        }, 2000);
+    });
+
+    Promise.all([promise]).then((url) => {
+        let link = url[0].u_resume;
+        dbConn.query(`update UserProfile SET u_resume = '${link}' where u_ID = ${id} `, function (error, results, fields) {
+            if (error) {
+                console.log(error)
+                errors.email = "Unable to update education profile, Please try again!";
+                return res.status(400).json(errors);
+            } else {
+                console.log("rrr", results)
+                if (results.affectedRows > 0) {
+                    res.json({
+                        success: true,
+                    });
+                }
+            }
+        });
+    })
 }
 
 

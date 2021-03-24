@@ -16,7 +16,6 @@ import {
 } from '@material-ui/core';
 import { Formik, ErrorMessage } from 'formik';
 import axios from "axios";
-import { useHistory } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -218,7 +217,7 @@ const ProfileComponent = (props, { className, ...rest }) => {
                           id="u_dob"
                           name="u_dob"
                           label=""
-                          value={user.u_dob == undefined ? "" : user.u_dob.split('T')[0]}
+                          value={user.u_dob === undefined ? "" : user.u_dob.split('T')[0]}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           disabled={true}

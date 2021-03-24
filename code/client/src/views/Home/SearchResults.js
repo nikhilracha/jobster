@@ -2,7 +2,6 @@ import React from 'react';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import SortFilter from './SortFilter';
-import Footer from '../../components/Footer/Footer'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -19,7 +18,7 @@ import Button from '@material-ui/core/Button';
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import parse from 'html-react-parser'
-import has from "lodash/has";
+
 import g2 from "../../assets/img/g2.jpg"
 import g3 from "../../assets/img/g3.png"
 

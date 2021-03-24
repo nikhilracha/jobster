@@ -23,9 +23,7 @@ import { useHistory } from 'react-router-dom';
 
 import { ProfileFormSchema } from '../../../../validation/Validations';
 import { asyncTokenUpdate } from '../../../../actions/authActions';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import ClearIcon from '@material-ui/icons/Clear';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,17 +47,6 @@ const ProfileForm = (props, { ...rest }) => {
     const id = props.id;
 
     const classes = useStyles();
-
-
-    // const [edit, setEdit] = React.useState(true);
-
-    // const onEdit = () => {
-    //     setEdit(!edit)
-    // }
-    // const onSave = () => {
-    //     setEdit(!edit)
-    // }
-
 
 
     return (
@@ -108,7 +95,6 @@ const ProfileForm = (props, { ...rest }) => {
                             u_ID,
                             u_profpic,
                             u_resume,
-                            u_profpic_preview,
                             u_undergrad,
                             u_undergrad_gpa,
                             u_grad,
@@ -131,22 +117,6 @@ const ProfileForm = (props, { ...rest }) => {
                             console.log(key[0] + ', ' + key[1]);
                         }
 
-
-                        // try {
-                        //     const response = axios.post("http://localhost:5000/api/create-profile", body, { 'content-type': 'multipart/form-data' });
-                        //     const { status } = response.data;
-                        //     console.log("loggigin", response)
-                        //     if (status) {
-                        //         history.replace('/profile')
-                        //     }
-                        // }
-
-                        // catch (errors) {
-                        //     console.log("errors in async register", errors.request);
-                        //     actions.setErrors({ u_concentration: "There is some trouble in registering profile" })
-
-                        // }
-
                         axios({
                             method: "post",
                             url: "http://localhost:5000/api/create-profile",
@@ -164,7 +134,7 @@ const ProfileForm = (props, { ...rest }) => {
                                                 console.log("error in updating token", res.error)
                                             }
                                             else {
-                                                history.push('/profile')
+                                                history.go(0)
                                             }
                                         })
 

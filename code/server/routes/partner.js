@@ -74,6 +74,7 @@ exports.login = async function (req, res) {
     console.log("in body", req.body);
     dbConn.query("SELECT * FROM PARTNER WHERE p_email = ?", [email], async function (error, results, fields) {
         if (error) {
+            console.log(error)
             res.send({
                 "code": 400,
                 "failed": error

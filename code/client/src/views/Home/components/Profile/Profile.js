@@ -8,7 +8,6 @@ import {
     Container,
     Grid,
     makeStyles,
-    Typography
 } from '@material-ui/core';
 
 
@@ -78,19 +77,17 @@ const Profile = (props) => {
                 // window.location.href = "/login";
             }
         }
-
-
-
-    }, [])
-
-    React.useEffect(() => {
-        if (props.auth.isAuthenticated) {
-            console.log("true");
-        }
         else {
-            // history.replace('/')
+
+            history.replace('/')
+
         }
-    });
+
+
+
+    }, [localStorage.jwtToken])
+
+
 
 
 
