@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 import UserPortal from 'views/Home/UserPortal';
 
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
     justifyContent: "center"
   },
   Container: {
-    marginTop: '100px',
+    marginTop: '70px',
     Directions: 'column',
     marginLeft: '10%',
     marginRight: '10%',
@@ -59,6 +60,18 @@ const useStyles = makeStyles({
 
 function ClientDetails() {
   const classes = useStyles();
+
+  const history = useHistory();
+  React.useEffect(()=> {
+    let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+    if(token){
+      console.log('Authenticated User')
+    }
+    else{
+      history.push('/admin')
+    }
+      },[])
+
 
   const { clientid } = useParams();
   

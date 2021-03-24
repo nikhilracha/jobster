@@ -25,7 +25,6 @@ const theme = createMuiTheme({
   },
 })
 
-
 const useStyles = makeStyles({
   appMain: {
     width: '100%',
@@ -49,7 +48,17 @@ const useStyles = makeStyles({
 
 function PostAd() {
   const classes = useStyles();
-  // const history = useHistory();
+  const history = useHistory();
+
+  React.useEffect(()=> {
+    let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+    if(token){
+      console.log('Authenticated User')
+    }
+    else{
+      history.push('/admin')
+    }
+      },[])
   // const navigateTo = () => history.push('/A_home');
 
   return (
