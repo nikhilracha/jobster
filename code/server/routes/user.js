@@ -229,11 +229,10 @@ exports.createProfile = async function (req, res) {
 
                 Promise.all([promise, promise2]).then((url) => {
                     console.log("result", url)
-                    console.log("Request", req);
                     var profile = {
                         "u_ID": req.body.u_ID,
                         "u_profpic": url[0].prof_url,
-                        "u_resume": url[1].resume_url,
+                        "u_resume": url[1].u_resume,
                         "u_ug": req.body.u_undergrad,
                         "u_ug_gpa": req.body.u_undergrad_gpa,
                         "u_grad": req.body.u_grad,

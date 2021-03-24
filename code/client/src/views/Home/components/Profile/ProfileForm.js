@@ -148,7 +148,7 @@ const ProfileForm = (props, { ...rest }) => {
                                                 console.log("error in updating token", res.error)
                                             }
                                             else {
-                                                history.push('/profile')
+                                                history.go(0)
                                             }
                                         })
 

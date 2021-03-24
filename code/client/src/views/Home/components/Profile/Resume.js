@@ -143,14 +143,11 @@ const Resume = (props, { className, ...rest }) => {
                       :
                       edit ?
                         <>
-                          <IconButton onClick={onEdit} aria-label="edit">
-                            <EditIcon />
-                          </IconButton>
+
                         </>
                         :
-                        <IconButton type="submit" onClick={onEdit} aria-label="edit">
-                          <ClearIcon />
-                        </IconButton>}
+                        <></>
+                    }
                   </>
                 }
               />
