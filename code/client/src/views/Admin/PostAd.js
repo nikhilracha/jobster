@@ -12,6 +12,7 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +24,6 @@ const theme = createMuiTheme({
     },
   },
 })
-
 
 const useStyles = makeStyles({
   appMain: {
@@ -48,6 +48,18 @@ const useStyles = makeStyles({
 
 function PostAd() {
   const classes = useStyles();
+  const history = useHistory();
+
+  React.useEffect(()=> {
+    let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+    if(token){
+      console.log('Authenticated User')
+    }
+    else{
+      history.push('/admin')
+    }
+      },[])
+  // const navigateTo = () => history.push('/A_home');
 
   return (
     <ThemeProvider theme={theme}>

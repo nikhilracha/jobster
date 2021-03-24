@@ -50,7 +50,18 @@ const useStyles = makeStyles({
 
 function ClientInfo() {
   const classes = useStyles();
+
   const history = useHistory();
+  React.useEffect(()=> {
+    let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+    if(token){
+      console.log('Authenticated User')
+    }
+    else{
+      history.push('/admin')
+    }
+      },[])
+
   const nav1 = (clientId) => history.push('clientdetails/'+clientId);
 
   let [responseData, setResponseData] = React.useState('');

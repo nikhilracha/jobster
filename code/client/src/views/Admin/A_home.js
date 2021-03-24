@@ -50,6 +50,17 @@ function A_home() {
   const nav1 = () => history.push('/clientinfo');
   const nav2 = () => history.push('/postad');
 
+
+  React.useEffect(()=> {
+let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+if(token){
+  console.log('Authenticated User')
+}
+else{
+  history.push('/admin')
+}
+  },[])
+
   return (
     <ThemeProvider theme={theme}>
       <div>

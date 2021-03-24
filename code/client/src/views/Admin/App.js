@@ -72,6 +72,7 @@ function App() {
                 console.log(res.data)
                 if (res.data.success)
                 {
+                  localStorage.setItem("a_jwtToken", JSON.stringify(res.data.token));
                   history.push('/a_home')
                 }
                 })
