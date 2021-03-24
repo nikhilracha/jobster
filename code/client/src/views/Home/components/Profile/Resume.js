@@ -12,11 +12,9 @@ import {
   IconButton,
   makeStyles
 } from '@material-ui/core';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import axios from "axios";
-import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
-import ClearIcon from '@material-ui/icons/Clear';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 
@@ -32,20 +30,7 @@ const Resume = (props, { className, ...rest }) => {
   const classes = useStyles();
   const id = props.auth.user.id;
 
-  const [edit, setEdit] = React.useState(true);
-
-  const onEdit = () => {
-    setEdit(!edit)
-  }
-  const onSave = () => {
-    setEdit(!edit)
-  }
-
   console.log("Resume", props)
-
-  const user = {
-    u_resume: "https://res.cloudinary.com/dxg3rmriu/image/upload/v1616183675/resume.pdf"
-  }
 
 
   return (
@@ -108,9 +93,9 @@ const Resume = (props, { className, ...rest }) => {
                 action={
                   <>
 
-                    {props.u_resume == undefined
+                    {props.u_resume === undefined
                       ?
-                      <>{values.u_resume == null ? <>
+                      <>{values.u_resume === null ? <>
                         <input
                           name="u_resume"
                           accept=".pdf"
@@ -141,19 +126,18 @@ const Resume = (props, { className, ...rest }) => {
 
                       </>
                       :
-                      edit ?
-                        <>
 
-                        </>
-                        :
-                        <></>
+                      <>
+
+                      </>
+
                     }
                   </>
                 }
               />
               <Divider />
               <CardContent>
-                {props.u_resume == undefined
+                {props.u_resume === undefined
                   ?
                   <>
                     <p>No resume uploaded!</p>

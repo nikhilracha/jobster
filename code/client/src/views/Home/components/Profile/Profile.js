@@ -8,7 +8,6 @@ import {
     Container,
     Grid,
     makeStyles,
-    Typography
 } from '@material-ui/core';
 
 

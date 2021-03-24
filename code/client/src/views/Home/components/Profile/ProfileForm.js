@@ -23,9 +23,7 @@ import { useHistory } from 'react-router-dom';
 
 import { ProfileFormSchema } from '../../../../validation/Validations';
 import { asyncTokenUpdate } from '../../../../actions/authActions';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import ClearIcon from '@material-ui/icons/Clear';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,17 +47,6 @@ const ProfileForm = (props, { ...rest }) => {
     const id = props.id;
 
     const classes = useStyles();
-
-
-    // const [edit, setEdit] = React.useState(true);
-
-    // const onEdit = () => {
-    //     setEdit(!edit)
-    // }
-    // const onSave = () => {
-    //     setEdit(!edit)
-    // }
-
 
 
     return (
@@ -108,7 +95,6 @@ const ProfileForm = (props, { ...rest }) => {
                             u_ID,
                             u_profpic,
                             u_resume,
-                            u_profpic_preview,
                             u_undergrad,
                             u_undergrad_gpa,
                             u_grad,

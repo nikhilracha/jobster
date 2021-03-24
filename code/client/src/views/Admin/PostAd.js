@@ -10,10 +10,9 @@ import {
   TextField,
 } from '@material-ui/core';
 import { Formik } from 'formik';
-import { useHistory } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -49,8 +48,6 @@ const useStyles = makeStyles({
 
 function PostAd() {
   const classes = useStyles();
-  // const history = useHistory();
-  // const navigateTo = () => history.push('/A_home');
 
   return (
     <ThemeProvider theme={theme}>

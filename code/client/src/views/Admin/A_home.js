@@ -2,10 +2,7 @@ import React from 'react';
 import { makeStyles, CssBaseline, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import Header from 'components/Header-adv/Header';
 import {
-  Box,
-  Container,
   Grid,
-  Paper,
   Card,
   CardContent,
   Button,
@@ -14,10 +11,7 @@ import {
 import FeaturedVideoIcon from '@material-ui/icons/FeaturedVideo';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { useHistory } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
-// import * as Yup from 'yup';
-import SearchIcon from '@material-ui/icons/Search';
-import ClientBox from './ClientBox';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -45,7 +39,7 @@ const useStyles = makeStyles({
     width: 100,
     justifyContent: "center"
   },
-  card: { 
+  card: {
     justifyContent: "center"
   }
 })
@@ -59,28 +53,28 @@ function A_home() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Header /> 
+        <Header />
         <Typography className={classes.paper}
-            color="textPrimary"
-            variant="h3"
-          >
-              Welcome to Admin Portal.
+          color="textPrimary"
+          variant="h3"
+        >
+          Welcome to Admin Portal.
           </Typography>
-        <Grid 
-        className={classes.appMain}
-        container spacing={3}
+        <Grid
+          className={classes.appMain}
+          container spacing={3}
         >
           <Grid item xs={3}>
             <Card spacing={3}>
               <CardContent>
-                <AssignmentIndIcon className={classes.icon}/>
+                <AssignmentIndIcon className={classes.icon} />
                 <Button
-                    color='primary'
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    onClick={nav1}
+                  color='primary'
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  onClick={nav1}
                 >
                   Access Client Information
                 </Button>
@@ -89,20 +83,20 @@ function A_home() {
           </Grid>
           <Grid item xs={3}>
             <Card>
-                <CardContent className={classes.card}>
-                  <FeaturedVideoIcon className={classes.icon}/>
-                  <Button
-                    color='primary'
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    onClick={nav2}
+              <CardContent className={classes.card}>
+                <FeaturedVideoIcon className={classes.icon} />
+                <Button
+                  color='primary'
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  onClick={nav2}
                 >
                   Post An Ad
                 </Button>
-                </CardContent>
-              </Card>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </div>

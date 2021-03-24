@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 250,
     },
-    margn:{
+    margn: {
         marginTop: 105,
         marginBottom: 15
     },
-    text:{
+    text: {
         marginBottom: 10,
         marginLeft: 60
     },
@@ -61,12 +61,12 @@ function SearchBar(props) {
             "method": "GET",
             "url": "http://localhost:5000/api/advert",
         })
-        .then((response) => {
-            setResponseData(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((response) => {
+                setResponseData(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
         console.log(responseData)
     }, [])
@@ -108,13 +108,12 @@ function SearchBar(props) {
                                 
                                 </Grid> */}
                                 <Grid className={classes.margn}>
-                                <Typography className={classes.text}
-                                    color="textPrimary"
-                                    variant="h5"
-
-                                    className={classes.text}
-                                >
-                                    Find The Right Fit.
+                                    <Typography
+                                        className={classes.text}
+                                        color="textPrimary"
+                                        variant="h5"
+                                    >
+                                        Find The Right Fit.
                                 </Typography>
                                 </Grid>
                                 <Grid container justify="center" spacing={2} >
@@ -161,15 +160,15 @@ function SearchBar(props) {
                                     </Grid>
                                 </Grid>
                                 <Grid container >
-                                    <div style={{width: '500px', margin: '0 auto'}}>
-                                        <div style={{textAlign: 'left'}}><small>Sponsored.{responseData.company}</small></div>
-                                        <div style={{textAlign: 'center'}}><a target="_blank" href={responseData.red_link}><img style={{width: '500px'}} src={responseData.imagelink}></img></a></div>
+                                    <div style={{ width: '500px', margin: '0 auto' }}>
+                                        <div style={{ textAlign: 'left' }}><small>Sponsored.{responseData.company}</small></div>
+                                        <div style={{ textAlign: 'center' }}><a target="_blank" rel="noreferrer" href={responseData.red_link}><img style={{ width: '500px' }} alt="Advt" src={responseData.imagelink}></img></a></div>
                                     </div>
                                 </Grid>
                                 {/* </Box> */}
                             </form>
 
-                            
+
                         )}
                 </Formik>
 

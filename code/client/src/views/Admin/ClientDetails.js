@@ -10,11 +10,9 @@ import {
   CardHeader,
   Divider,
   Avatar,
-  Button,
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-import UserPortal from 'views/Home/UserPortal';
 
 
 const theme = createMuiTheme({
@@ -46,7 +44,7 @@ const useStyles = makeStyles({
     marginLeft: '10%',
     marginRight: '10%',
     flexDirection: "column",
-    textAlign:'left',
+    textAlign: 'left',
     justifyContent: 'center'
   },
   avatar: {
@@ -54,52 +52,52 @@ const useStyles = makeStyles({
     width: 130,
     justifyContent: 'center'
   },
-  
+
 })
 
 function ClientDetails() {
   const classes = useStyles();
 
   const { clientid } = useParams();
-  
+
   let [responseData, setResponseData] = React.useState('');
 
   React.useEffect(() => {
     axios({
       "method": "GET",
-      "url": "http://localhost:5000/api/clients/"+clientid,
+      "url": "http://localhost:5000/api/clients/" + clientid,
     })
-    .then((response) => {
-      setResponseData(response.data)
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        setResponseData(response.data)
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Header /> 
-          <Box maxWidth="lg" className={classes.Container}>
-            <Grid container spacing={3}>
-            <Grid item xs> 
+        <Header />
+        <Box maxWidth="lg" className={classes.Container}>
+          <Grid container spacing={3}>
+            <Grid item xs>
               <Card>
-              <CardHeader
-                title="Client Details"
-              />                
-              <Divider />
-               <CardContent>
-               <Box
+                <CardHeader
+                  title="Client Details"
+                />
+                <Divider />
+                <CardContent>
+                  <Box
                     display="flex"
                     justifyContent="center"
                   >
                     <Avatar
                       alt="Product"
-                      src= {responseData.logo}
+                      src={responseData.logo}
                       variant="square"
-                      className = {classes.avatar}
+                      className={classes.avatar}
                     />
                   </Box>
                   <Typography
@@ -156,7 +154,7 @@ function ClientDetails() {
                     gutterBottom
                     variant='subtitle1'
                   >
-                    Website: <a target="_blank" href={responseData.website}>{responseData.website}</a>
+                    Website: <a target="_blank" rel="noreferrer" href={responseData.website}>{responseData.website}</a>
                   </Typography>
                   <Typography
                     color="textPrimary"
@@ -172,11 +170,11 @@ function ClientDetails() {
                   >
                     Specialties: {responseData.specialties}
                   </Typography>
-               </CardContent>
+                </CardContent>
               </Card>
             </Grid>
-            </Grid> 
-          </Box>
+          </Grid>
+        </Box>
       </div>
       <CssBaseline />
     </ThemeProvider>
