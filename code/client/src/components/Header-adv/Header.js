@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#0e76a8',
+        backgroundColor: '#2867B2',
 
     },
     logoColor: {
@@ -20,45 +20,45 @@ export default function Header() {
 
     const history = useHistory();
     const classes = useStyles();
-    const [auth, setAuth]= React.useState(0);
-    const handleClick=() =>{
+    const [auth, setAuth] = React.useState(0);
+    const handleClick = () => {
         localStorage.removeItem('a_jwtToken')
         history.replace('/admin')
     }
 
 
-    React.useEffect(()=> {
+    React.useEffect(() => {
         let token = JSON.parse(localStorage.getItem('a_jwtToken'))
-        if(token){
+        if (token) {
             setAuth(1)
         }
-        else{
-            
+        else {
+
         }
-          },[])
- 
+    }, [])
+
     return (
         <AppBar position="static" className={classes.root}>
-        <Toolbar>
-        <Grid container
-                alignItems="center">
-                <Grid item>
-                <Typography className={classes.logoColor} variant="h5">
-                Jobster-Adv Mgmt.
-                </Typography>
-                </Grid>
-                <Grid item sm></Grid>
-                {
-                    auth? 
+            <Toolbar>
+                <Grid container
+                    alignItems="center">
                     <Grid item>
-                    <Button className={classes.logoutButton} onClick={handleClick}>
-                        Log Out
+                        <Typography className={classes.logoColor} variant="h5">
+                            Jobster-Adv Mgmt.
+                </Typography>
+                    </Grid>
+                    <Grid item sm></Grid>
+                    {
+                        auth ?
+                            <Grid item>
+                                <Button className={classes.logoutButton} onClick={handleClick}>
+                                    Log Out
                     </Button>
-                    </Grid>:<></>
-                }
+                            </Grid> : <></>
+                    }
 
-            </Grid>
-        </Toolbar>
-    </AppBar>
+                </Grid>
+            </Toolbar>
+        </AppBar>
     )
 }

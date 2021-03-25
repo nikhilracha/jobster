@@ -16,7 +16,7 @@ import axios from "axios";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0e76a8",
+      main: "#2867B2",
     },
     background: {
       default: "#f4f5fd"
