@@ -85,13 +85,15 @@ function PartnerDashboard(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar style={{ background: '#2867B2' }} position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
+                        <Typography variant="h6" className={classes.title}>
+                            Jobster
+                    </Typography>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Partner Dashboard
+
                     </Typography>
                     {true && (
                         <div>
