@@ -48,14 +48,7 @@ export default function Header() {
                 </Typography>
                 </Grid>
                 <Grid item sm></Grid>
-                {
-                    auth? 
-                    <Grid item>
-                        <Typography className={classes.logoColor} variant="h5">
-                            Jobster-Adv Mgmt.
-                </Typography>
-                    </Grid>
-                    <Grid item sm></Grid>
+
                     {
                         auth ?
                             <Grid item>
