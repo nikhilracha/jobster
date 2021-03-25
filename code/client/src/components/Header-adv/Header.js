@@ -39,7 +39,6 @@ export default function Header() {
 
     return (
         <AppBar position="static" className={classes.root}>
-<<<<<<< HEAD
         <Toolbar>
         <Grid container
                 alignItems="center">
@@ -51,11 +50,6 @@ export default function Header() {
                 <Grid item sm></Grid>
                 {
                     auth? 
-=======
-            <Toolbar>
-                <Grid container
-                    alignItems="center">
->>>>>>> master
                     <Grid item>
                         <Typography className={classes.logoColor} variant="h5">
                             Jobster-Adv Mgmt.
