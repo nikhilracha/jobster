@@ -27,6 +27,7 @@ import PostAd from 'views/Admin/PostAd';
 import ClientDetails from 'views/Admin/ClientDetails';
 import AddClient from 'views/Admin/AddClient';
 import AppJobPostMgmt from 'views/JobPostMgmt/AppJobPostMgmt';
+import PartnerProfile from 'views/Partner/components/Profile/PartnerProfile';
 
 var hist = createBrowserHistory();
 
@@ -40,6 +41,7 @@ ReactDOM.render(
           <Route path="/partner" component={PartnerPortal} />
           <Route path="/p-signup" component={PartnerSignup} />
           <Route path="/p-dashboard" component={PartnerDashboard} />
+          <Route path="/p-profile" component={PartnerProfile} />
           <Route path="/contact" component={Contact} />
           <Route path="/results" component={SearchResults} />
           <Route path="/FAQ" component={FAQ} />

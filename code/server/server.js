@@ -33,6 +33,10 @@ router.post('/login', user.login);//user Login route
 router.post('/register', user.register);// user Register route
 router.post('/tkn-update', user.tkn_update);//user token route
 router.get('/profile/:id', user.getProfile); //user profile retrieval
+router.post('/create-profile', upload.fields([
+    { name: "u_profpic" },
+    { name: "u_resume" }
+]), user.createProfile);//Register route
 router.post('/update-profile', user.modifyUserProfile); //user profile info modification 
 router.post('/update-education-profile', user.modifyUserEducationProfile); //user education profile info modification 
 router.post('/update-resume', upload.fields([
@@ -45,14 +49,13 @@ router.post('/p-register', partner.register);//Partner login route
 router.post('/search', corefs.search);//postings search
 
 router.post('/a-login', admin.login);//Admin login route
+router.post('/create-client', admin.createClient);//Post advert route
+router.get('/clients', admin.clients);//Get clients route
+router.get('/clients/:clientid', admin.clientinfo);//Get client route
+router.get('/advert', admin.advert);//Get advert route
+router.post('/advert', admin.postad);//Post advert route
 
-router.post('/create-profile', upload.fields([
-    { name: "u_profpic" },
-    { name: "u_resume" }
-]), user.createProfile);//Register route
 
-router.get('/clients', corefs.clients);//Get clients route
-router.get('/clients/:clientid', corefs.clientinfo);//Get client route
-router.get('/advert', corefs.advert);//Get advert route
-router.post('/advert', corefs.postad);//Post advert route
+
+
 

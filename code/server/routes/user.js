@@ -207,7 +207,7 @@ exports.createProfile = async function (req, res) {
                         } else {
                             // If promise can not be fulfilled due to some errors like network failure
                             // reject(new Error({ msg: 'It does not work' }));
-                            resolve({ prof_url: "" });
+                            resolve({ prof_url: null });
                         }
                     }, 2000);
                 });
@@ -222,7 +222,7 @@ exports.createProfile = async function (req, res) {
                         } else {
                             // If promise can not be fulfilled due to some errors like network failure
                             // reject(new Error({ msg: 'It does not work' }));
-                            resolve({ u_resume: "" });
+                            resolve({ u_resume: null });
                         }
                     }, 2000);
                 });
@@ -341,7 +341,7 @@ exports.modifyUserResume = async function (req, res) {
             } else {
                 // If promise can not be fulfilled due to some errors like network failure
                 // reject(new Error({ msg: 'It does not work' }));
-                resolve({ u_resume: "" });
+                resolve({ u_resume: null });
             }
         }, 2000);
     });

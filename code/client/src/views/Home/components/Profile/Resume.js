@@ -16,7 +16,7 @@ import { Formik } from 'formik';
 import axios from "axios";
 import SaveIcon from '@material-ui/icons/Save';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const Resume = (props, { className, ...rest }) => {
   const classes = useStyles();
   const id = props.auth.user.id;
+  const history = useHistory();
 
   console.log("Resume", props)
 
@@ -62,8 +63,8 @@ const Resume = (props, { className, ...rest }) => {
           .then(function (response) {
             //handle success
             console.log(response);
-            if (response.data.status) {
-
+            if (response.data.success) {
+              history.go(0)
             }
           })
           .catch(function (error) {
@@ -95,6 +96,13 @@ const Resume = (props, { className, ...rest }) => {
 
                     {props.u_resume === undefined
                       ?
+                      <>
+
+                      </>
+                      :
+
+
+
                       <>{values.u_resume === null ? <>
                         <input
                           name="u_resume"
@@ -123,11 +131,6 @@ const Resume = (props, { className, ...rest }) => {
                         <IconButton type="submit" aria-label="edit">
                           <SaveIcon />
                         </IconButton>}
-
-                      </>
-                      :
-
-                      <>
 
                       </>
 

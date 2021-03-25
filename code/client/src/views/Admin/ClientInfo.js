@@ -17,7 +17,7 @@ import axios from "axios";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0e76a8",
+      main: "#2867B2",
     },
     background: {
       default: "#f4f5fd"
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     marginLeft: '10%',
     marginRight: '10%',
     flexDirection: "row",
-    textAlign:'center'
+    textAlign: 'center'
   }
 })
 
@@ -52,17 +52,17 @@ function ClientInfo() {
   const classes = useStyles();
 
   const history = useHistory();
-  React.useEffect(()=> {
+  React.useEffect(() => {
     let token = JSON.parse(localStorage.getItem('a_jwtToken'))
-    if(token){
+    if (token) {
       console.log('Authenticated User')
     }
-    else{
+    else {
       history.push('/admin')
     }
-      },[])
+  }, [])
 
-  const nav1 = (clientId) => history.push('clientdetails/'+clientId);
+  const nav1 = (clientId) => history.push('clientdetails/' + clientId);
 
   let [responseData, setResponseData] = React.useState('');
 
@@ -71,12 +71,12 @@ function ClientInfo() {
       "method": "GET",
       "url": "http://localhost:5000/api/clients",
     })
-    .then((response) => {
-      setResponseData(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        setResponseData(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, [])
 
   return (
@@ -109,7 +109,7 @@ function ClientInfo() {
                       >
                         <Avatar
                           alt="Product"
-                          src= {responseData[index].logo}
+                          src={responseData[index].logo}
                           variant="square"
                         />
                       </Box>
@@ -128,32 +128,32 @@ function ClientInfo() {
                       >
                         {responseData[index].info}
                       </Typography>
-                      </CardContent>
-                      <Box flexGrow={1} />
-                      <Divider />
-                      <Box p={2}>
-                        <Grid
+                    </CardContent>
+                    <Box flexGrow={1} />
+                    <Divider />
+                    <Box p={2}>
+                      <Grid
                         Container
                         justify='flex-end'
+                      >
+                        <Button
+                          color='primary'
+                          fullWidth
+                          size="small"
+                          type="submit"
+                          variant="contained"
+                          onClick={() => { nav1(responseData[index].c_id) }}
                         >
-                          <Button
-                              color='primary'
-                              fullWidth
-                              size="small"
-                              type="submit"
-                              variant="contained"
-                              onClick={ () => { nav1(responseData[index].c_id) }}
-                          >
-                            Open
+                          Open
                           </Button>
-                        </Grid>
-                      </Box>
-                    </Card>
-                  </Grid>
-                ))
-              }
-            </Grid> 
-          </Box>
+                      </Grid>
+                    </Box>
+                  </Card>
+                </Grid>
+              ))
+            }
+          </Grid>
+        </Box>
       </div>
       <CssBaseline />
     </ThemeProvider>

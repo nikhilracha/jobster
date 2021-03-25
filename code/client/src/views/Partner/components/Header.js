@@ -22,43 +22,28 @@ export default function Header() {
     const classes = useStyles();
     const [auth, setAuth] = React.useState(0);
     const handleClick = () => {
-        localStorage.removeItem('a_jwtToken')
-        history.replace('/admin')
+
     }
 
 
     React.useEffect(() => {
-        let token = JSON.parse(localStorage.getItem('a_jwtToken'))
-        if (token) {
-            setAuth(1)
-        }
-        else {
+        // let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+        // if (token) {
+        //     setAuth(1)
+        // }
+        // else {
 
-        }
+        // }
     }, [])
 
     return (
         <AppBar position="static" className={classes.root}>
-<<<<<<< HEAD
-        <Toolbar>
-        <Grid container
-                alignItems="center">
-                <Grid item>
-                <Typography className={classes.logoColor} variant="h5" onClick={()=> history.push('/admin')}>
-                Jobster-Adv Mgmt.
-                </Typography>
-                </Grid>
-                <Grid item sm></Grid>
-                {
-                    auth? 
-=======
             <Toolbar>
                 <Grid container
                     alignItems="center">
->>>>>>> master
                     <Grid item>
-                        <Typography className={classes.logoColor} variant="h5">
-                            Jobster-Adv Mgmt.
+                        <Typography className={classes.logoColor} variant="h6">
+                            Partner Dashboard
                 </Typography>
                     </Grid>
                     <Grid item sm></Grid>

@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0e76a8",
+      main: "#2867B2",
     },
     background: {
       default: "#f4f5fd"
@@ -50,15 +50,15 @@ function PostAd() {
   const classes = useStyles();
   const history = useHistory();
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     let token = JSON.parse(localStorage.getItem('a_jwtToken'))
-    if(token){
+    if (token) {
       console.log('Authenticated User')
     }
-    else{
+    else {
       history.push('/admin')
     }
-      },[])
+  }, [])
   // const navigateTo = () => history.push('/A_home');
 
   return (
