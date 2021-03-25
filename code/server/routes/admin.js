@@ -160,7 +160,7 @@ exports.createClient = async function (req, res) {
         'specialties': req.body.specialties,
         'logo': req.body.imgLink,
     }
-    console.log(advert)
+
     dbConn.query("INSERT INTO client SET ?", data, async function (error, advert) {
         if (error) {
             console.log(error)

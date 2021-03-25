@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0e76a8",
+      main: "#2867B2",
     },
     background: {
       default: "#f4f5fd"
@@ -47,7 +47,8 @@ const useStyles = makeStyles({
 })
 
 function AddClient() {
-   const classes = useStyles();
+  const classes = useStyles();
+  const history = useHistory();
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,17 +71,17 @@ function AddClient() {
                 type: '',
                 revenue: '',
                 totalEmp: '',
-                websiteLink: '',      
+                websiteLink: '',
                 foundedYear: '',
                 specialties: '',
               }}
               validationSchema={Yup.object().shape({
                 imgLink: Yup.string()
-                .matches(
+                  .matches(
                     /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
                     'Enter correct url!'
-                )
-                .required('Logo Link is required'),
+                  )
+                  .required('Logo Link is required'),
                 name: Yup.string().max(255).required('Company Name is required'),
                 industry: Yup.string().max(255).required('Company Industry is required'),
                 info: Yup.string().max(255).required('Company Info is required'),
@@ -89,20 +90,27 @@ function AddClient() {
                 revenue: Yup.string().max(255).required('Company Revenue is required'),
                 totalEmp: Yup.string().max(255).required('Company Total Number of Employees is required'),
                 websiteLink: Yup.string()
-                .matches(
+                  .matches(
                     /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
                     'Enter correct url!'
-                )
-                .required('Logo Link is required'),
+                  )
+                  .required('Logo Link is required'),
                 foundedYear: Yup.string().max(255).required('Company Foundation Year is required'),
                 specialties: Yup.string().max(255).required('Company Specialties is required'),
               })}
 
               onSubmit={(values, actions) => {
                 console.log("props", values)
+                axios.post('http://localhost:5000/api/create-client', values).then(response => {
+                  alert(response.data.message);
+                  history.replace('/clientinfo');
+                })
+                  .catch(error => {
+                    alert(error)
+                  })
 
-            }}
-            
+              }}
+
             >
               {({
                 errors,
@@ -126,8 +134,8 @@ function AddClient() {
                     </Box>
 
                     <Grid
-                    container
-                    spacing={2}
+                      container
+                      spacing={2}
                     >
                       <Grid
                         item
@@ -214,8 +222,8 @@ function AddClient() {
                     </Grid>
 
                     <Grid
-                    container
-                    spacing={2}
+                      container
+                      spacing={2}
                     >
                       <Grid
                         item
@@ -254,8 +262,8 @@ function AddClient() {
                     </Grid>
 
                     <Grid
-                    container
-                    spacing={2}
+                      container
+                      spacing={2}
                     >
                       <Grid
                         item
@@ -303,7 +311,7 @@ function AddClient() {
                       >
                         <TextField
                           error={Boolean(touched.websiteLink && errors.websiteLink)}
-                          fullWidth                         
+                          fullWidth
                           helperText={touched.websiteLink && errors.websiteLink}
                           label="Company Website Link *"
                           margin="normal"
@@ -326,7 +334,7 @@ function AddClient() {
                       >
                         <TextField
                           error={Boolean(touched.foundedYear && errors.foundedYear)}
-                          fullWidth                         
+                          fullWidth
                           helperText={touched.foundedYear && errors.foundedYear}
                           label="Company Foundation Year*"
                           margin="normal"
@@ -349,7 +357,7 @@ function AddClient() {
                       >
                         <TextField
                           error={Boolean(touched.specialties && errors.specialties)}
-                          fullWidth                         
+                          fullWidth
                           helperText={touched.specialties && errors.specialties}
                           label="Company Specialties *"
                           margin="normal"
@@ -362,7 +370,7 @@ function AddClient() {
                       </Grid>
                     </Grid>
 
-                    
+
                     <Box my={2}>
                       <Button
                         color="primary"

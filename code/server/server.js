@@ -49,7 +49,7 @@ router.post('/p-register', partner.register);//Partner login route
 router.post('/search', corefs.search);//postings search
 
 router.post('/a-login', admin.login);//Admin login route
-router.post('/create-client', admin.createClient);//Post advert route
+router.post('/create-client', admin.createClient);//create client route
 router.get('/clients', admin.clients);//Get clients route
 router.get('/clients/:clientid', admin.clientinfo);//Get client route
 router.get('/advert', admin.advert);//Get advert route
