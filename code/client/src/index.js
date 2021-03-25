@@ -25,6 +25,7 @@ import Profile from 'views/Home/components/Profile/Profile';
 import ClientInfo from 'views/Admin/ClientInfo';
 import PostAd from 'views/Admin/PostAd';
 import ClientDetails from 'views/Admin/ClientDetails';
+import AddClient from 'views/Admin/AddClient';
 import AppJobPostMgmt from 'views/JobPostMgmt/AppJobPostMgmt';
 import PartnerProfile from 'views/Partner/components/Profile/PartnerProfile';
 
@@ -52,6 +53,7 @@ ReactDOM.render(
           <Route path="/clientinfo" component={ClientInfo} />
           <Route path="/clientdetails/:clientid" component={ClientDetails} />
           <Route path="/postad" component={PostAd} />
+          <Route path="/addClient" component={AddClient} />
           <Route path="/jobPost" component={AppJobPostMgmt} />
           <Route path="/" component={UserPortal} />
         </Switch>

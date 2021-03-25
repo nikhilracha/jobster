@@ -82,14 +82,26 @@ function ClientInfo() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Header />
-        <Box maxWidth="lg" className={classes.Container}>
-          <Grid container spacing={3}>
-            {
-              Object.keys(responseData).map(index => (
-                <Grid item lg={4}>
-                  <Card>
-                    <CardContent>
+        <Header /> 
+        
+           <Box maxWidth="sm" className={classes.Container}>
+           <Button onClick={()=> history.push('/addClient')}
+            color='primary'
+            fullWidth
+            size="small"
+            type="submit"
+            variant="contained"
+          >
+           + Add a Client
+           </Button>
+           </Box>
+          <Box maxWidth="lg" className={classes.Container}>
+            <Grid container spacing={3}> 
+              {
+                Object.keys(responseData).map(index => (
+                  <Grid item lg={4}>
+                    <Card>
+                      <CardContent>
                       <Box
                         display="flex"
                         justifyContent="center"

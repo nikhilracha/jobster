@@ -44,6 +44,16 @@ function App() {
   const classes = useStyles();
   const history = useHistory();
 
+  React.useEffect(()=> {
+    let token = JSON.parse(localStorage.getItem('a_jwtToken'))
+    if(token){
+      history.push('/a_home')
+    }
+    else{
+      history.push('/admin')
+    }
+      },[])
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.appMain}>

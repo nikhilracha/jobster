@@ -39,15 +39,16 @@ export default function Header() {
 
     return (
         <AppBar position="static" className={classes.root}>
-            <Toolbar>
-                <Grid container
-                    alignItems="center">
-                    <Grid item>
-                        <Typography className={classes.logoColor} variant="h5">
-                            Jobster-Adv Mgmt.
+        <Toolbar>
+        <Grid container
+                alignItems="center">
+                <Grid item>
+                <Typography className={classes.logoColor} variant="h5" onClick={()=> history.push('/admin')}>
+                Jobster-Adv Mgmt.
                 </Typography>
-                    </Grid>
-                    <Grid item sm></Grid>
+                </Grid>
+                <Grid item sm></Grid>
+
                     {
                         auth ?
                             <Grid item>
