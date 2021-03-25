@@ -43,7 +43,7 @@ export default function Header() {
         <Grid container
                 alignItems="center">
                 <Grid item>
-                <Typography className={classes.logoColor} variant="h5">
+                <Typography className={classes.logoColor} variant="h5" onClick={()=> history.push('/admin')}>
                 Jobster-Adv Mgmt.
                 </Typography>
                 </Grid>

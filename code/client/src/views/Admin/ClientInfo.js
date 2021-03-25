@@ -83,6 +83,18 @@ function ClientInfo() {
     <ThemeProvider theme={theme}>
       <div>
         <Header /> 
+        
+           <Box maxWidth="sm" className={classes.Container}>
+           <Button onClick={()=> history.push('/addClient')}
+            color='primary'
+            fullWidth
+            size="small"
+            type="submit"
+            variant="contained"
+          >
+           + Add a Client
+           </Button>
+           </Box>
           <Box maxWidth="lg" className={classes.Container}>
             <Grid container spacing={3}> 
               {
