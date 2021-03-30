@@ -80,19 +80,15 @@ function Header(props) {
                 // window.location.href = "/login";
             }
         }
-    }, [])
-
-    React.useEffect(() => {
-        if (!props.auth.isAuthenticated) {
-            console.log("true");
+        else {
             history.replace('/partner')
         }
-    });
+    }, [localStorage.pt_jwtToken])
 
     return (
         <AppBar style={{ background: '#2867B2' }} position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <IconButton onClick={() => history.replace('/partner')} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <Typography variant="h6" className={classes.title}>
                         Jobster
                     </Typography>

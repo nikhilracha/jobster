@@ -47,14 +47,12 @@ const PartnerProfile = (props) => {
                 // window.location.href = "/login";
             }
         }
-    }, [])
-
-    React.useEffect(() => {
-        if (!props.auth.isAuthenticated) {
-            console.log("true");
+        else {
             history.replace('/partner')
         }
-    });
+    }, [localStorage.pt_jwtToken])
+
+
 
 
 
