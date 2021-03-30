@@ -407,3 +407,60 @@ exports.getProfile = async function (req, res) {
         }
     });
 }
+
+
+exports.applyJob = async function (req, res) {
+    const errors = {}
+    console.log("From body", req.body);
+    let uid = req.body.id;
+    let jid = req.body.job;
+
+    let application = {
+        u_ID: uid,
+        j_ID: jid
+    }
+
+    dbConn.query(`SELECT * FROM Application WHERE u_ID = ${uid} AND j_ID = ${jid} `, async function (error, results, fields) {
+        if (error) {
+            errors.email = "Unable to Apply, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+            if (results.length > 0) {
+                errors.email = "User already Applied";
+                return res.status(400).json(errors);
+            }
+            else {
+                dbConn.query('INSERT INTO Application SET ?', application, function (error, results, fields) {
+                    if (error) {
+                        errors.email = "Unable to apply, Please try again!";
+                        return res.status(400).json(errors);
+                    } else {
+                        res.json({
+                            status: true,
+                            message: "User Applied Successfully"
+                        });
+                    }
+                });
+            }
+        }
+    }
+    );
+
+    // dbConn.query(`update USER SET u_firstname = '${u_firstname}', u_lastname = '${u_lastname}', u_email = '${u_email}', u_phone = '${u_phone}', u_street = '${u_street}', u_city = '${u_city}', u_state = '${u_state}', u_zip = ${u_zip} where u_ID = ${id} `, function (error, results, fields) {
+    //     if (error) {
+    //         console.log(error)
+    //         errors.email = "Unable to update profile, Please try again!";
+    //         return res.status(400).json(errors);
+    //     } else {
+
+    //         console.log("rrr", results)
+
+    //         if (results.affectedRows > 0) {
+
+    //             res.json({
+    //                 success: true,
+    //             });
+    //         }
+    //     }
+    // });
+}

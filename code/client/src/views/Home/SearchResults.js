@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './components/Header/Header';
+import HeaderLinksOut from './components/Header/HeaderLinksOut';
 import SearchBar from './components/SearchBar/SearchBar';
 import SortFilter from './SortFilter';
 
@@ -13,6 +14,16 @@ import Divider from '@material-ui/core/Divider';
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import Button from '@material-ui/core/Button';
+
+import { compose } from "recompose";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+import store from '../../store';
+import { setCurrentUser } from '../../actions/authActions';
+import setAuthToken from '../../utils/setAuthToken';
 
 
 import { FixedSizeList as List } from "react-window";
@@ -99,9 +110,62 @@ const SearchResults = (props) => {
     console.log("Search results props", props);
 
     React.useEffect(() => {
+        // Check for token
+        if (localStorage.jwtToken) {
+            // Set auth token header auth
+            console.log("in effect", localStorage.jwtToken);
+            setAuthToken(localStorage.jwtToken);
+            // Decode token and get user info and exp
+            const decoded = jwt_decode(localStorage.jwtToken);
+            console.log("in effect decoded", decoded);
+            // Set user and isAuthenticated
+            store.dispatch(setCurrentUser(decoded));
+
+            // Check for expired token
+            const currentTime = Date.now() / 1000;
+            if (decoded.exp < currentTime) {
+                //console.log("App.js is running inside if and if")
+                // Logout user
+                //store.dispatch(logoutUser());
+                // TODO: Clear current Profile
+                console.log("Session Expired")
+                // Redirect to login
+                // window.location.href = "/login";
+            }
+        }
+    }, [])
+
+    React.useEffect(() => {
         setJobData(data);
         setActiveRow(0)
     }, [data]);
+
+    const apply = (job) => {
+        console.log("Apply function clicked", job)
+        console.log("Props", props);
+        props.auth.isAuthenticated ?
+
+            axios({
+                method: "post",
+                url: "http://localhost:5000/api/apply-job",
+                data: { id: props.auth.user.id, job: job },
+            })
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                    alert(response.data.message)
+
+                })
+                .catch(function (error) {
+                    //handle error
+                    console.log(error.response.data.email);
+                    alert(error.response.data.email);
+                })
+
+            :
+            alert("Please Login to apply")
+    }
+
 
     function renderRow(props) {
         const { data, index, style } = props;
@@ -160,7 +224,13 @@ const SearchResults = (props) => {
                     </Grid>
 
                     <Grid className={classes.info} item xs={3}>
-                        <Button variant="outlined" color="primary" size="small" endIcon={<SendIcon />}>Apply</Button>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            size="small"
+                            endIcon={<SendIcon />}
+                            onClick={() => apply(jobDetail.j_id)}
+                        >Apply</Button>
                     </Grid>
                 </Grid>
                 <Divider />
@@ -183,7 +253,7 @@ const SearchResults = (props) => {
             <Container maxWidth="lg">
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Header />
+                        {props.auth.isAuthenticated ? <HeaderLinksOut user={props.auth.user} /> : <Header />}
                     </Grid>
                     <Grid item xs={12}>
                     </Grid>
@@ -238,4 +308,14 @@ const SearchResults = (props) => {
 
 }
 
-export default SearchResults;
+SearchResults.propTypes = {
+    auth: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+    }
+}
+
+export default compose(connect(mapStateToProps, {}, null))(SearchResults);

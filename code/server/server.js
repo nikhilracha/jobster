@@ -42,6 +42,8 @@ router.post('/update-education-profile', user.modifyUserEducationProfile); //use
 router.post('/update-resume', upload.fields([
     { name: "u_resume" }
 ]), user.modifyUserResume); //user resume info modification 
+router.post('/apply-job', user.applyJob);//Partner login route
+
 
 router.post('/p-login', partner.login);//Partner login route
 router.post('/p-register', partner.register);//Partner login route
