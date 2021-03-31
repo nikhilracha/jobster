@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, CssBaseline, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -9,19 +9,47 @@ import jwt_decode from "jwt-decode";
 import store from "../../../../store";
 import { useHistory } from 'react-router-dom';
 import Header from '../Header';
+import {
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  Typography
+} from '@material-ui/core';
+import DescriptionIcon from '@material-ui/icons/Description';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#2867B2",
+      },
+      background: {
+        default: "#f4f5fd"
+      },
+    },
+  })
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
+    appMain: {
+        width: '100%',
+        marginTop: '20px',
+        justifyContent: "center"
+      },
+      paper: {
+        marginTop: '100px',
+        textAlign: 'center',
+      },
+      icon: {
+        height: 100,
+        width: 100,
+        justifyContent: "center"
+      },
+      card: {
+        justifyContent: "center"
+      }
 }));
 
 function PartnerDashboard(props) {
@@ -29,8 +57,8 @@ function PartnerDashboard(props) {
 
 
     const history = useHistory();
-
-
+    const nav1 = () => history.push('/viewpostjobs');
+    const nav2 = () => history.push('/jobpost');
 
     React.useEffect(() => {
         // Check for token
@@ -66,10 +94,57 @@ function PartnerDashboard(props) {
     });
 
     return (
-        <div className={classes.root}>
-            <Header />
-            <h3>This is the partner Dashboard</h3>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div>
+        <Header />
+        <Typography className={classes.paper}
+          color="textPrimary"
+          variant="h4"
+        >
+          Welcome to Partner Dashboard.
+          </Typography>
+          <Grid
+          className={classes.appMain}
+          container spacing={3}
+        >
+          <Grid item xs={3}>
+            <Card spacing={3}>
+              <CardContent>
+                <ListAltIcon className={classes.icon} />
+                <Button
+                  color='primary'
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  onClick={nav1}
+                >
+                  View Posted Job
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={3}>
+            <Card>
+              <CardContent className={classes.card}>
+                <DescriptionIcon className={classes.icon} />
+                <Button
+                  color='primary'
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  onClick={nav2}
+                >
+                  Post A New Job
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        {/* <CssBaseline /> */}
+          </div>
+        </ThemeProvider>
     );
 }
 

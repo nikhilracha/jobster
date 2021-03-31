@@ -82,7 +82,7 @@ function PostAd() {
               validationSchema={Yup.object().shape({
                 company: Yup.string().max(255).required('Company name is required'),
                 redLink: Yup.string().max(10000).required('Redirection Link is required'),
-                // ad: Yup.string().max(10000).required('Last name is required'),
+                ad: Yup.string().max(10000).required('AD Link is required'),
               })}
               onSubmit={(values) => {
                 axios.post('http://localhost:5000/api/advert', values).then(response => {
@@ -175,7 +175,9 @@ function PostAd() {
                         xs={12}
                       >
                         <TextField
+                          error={Boolean(touched.ad && errors.ad)}
                           fullWidth
+                          helperText={touched.ad && errors.ad}
                           label="Ad Image Link"
                           name="Ad Image Link"
                           margin="normal"
