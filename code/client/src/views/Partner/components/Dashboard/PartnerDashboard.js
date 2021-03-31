@@ -101,7 +101,7 @@ function PartnerDashboard(props) {
           color="textPrimary"
           variant="h4"
         >
-          Welcome to Partner Dashboard.
+          Welcome to Partner.
           </Typography>
           <Grid
           className={classes.appMain}
