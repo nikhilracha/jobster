@@ -116,6 +116,58 @@ export const asyncPartnerRegister = userData => {
     }
 }
 
+export const asyncPartnerTokenUpdate = userData => {
+    return async dispatch => {
+        dispatch(userRequest(userData));
+        try {
+            const response = await axios.post("http://localhost:5000/api/p-tkn-update", userData, { timeout: 10000 });
+            console.log("userdata", userData)
+            const { token, tkn_type } = response.data;
+            console.log("loggigin", response)
+            if (tkn_type === 'partner') {
+                if (token) {
+                    //set token to local storage
+                    localStorage.removeItem("pt_jwtToken");
+                    localStorage.removeItem("lastUpdtTime");
+                    localStorage.setItem("pt_jwtToken", token);
+                    setAuthToken(false);
+                    //set token to auth header
+                    setAuthToken(token);
+                    //Decode Token to get user data
+                    const decoded = jwt_decode(token);
+                    //Set the current user
+                    setTimeout(() => {
+                        dispatch(setCurrentPartner(decoded));
+                    }, 1500)
+                    return { status: "logged-in" }
+                }
+            }
+            // dispatch(setCurrentUser(decoded));
+        }
+
+        catch (errors) {
+            console.log("errors in async login", errors.request);
+            if (errors.message === 'Network Error') {
+                return delay(5000).then(function () {
+                    console.log("Network Error", errors);
+                    dispatch(networkErrorHandler(errors, SET_USER_FAILURE));
+                    return { error: "Trouble with the network" };
+                });
+
+            } else {
+                return delay(5000).then(function () {
+                    dispatch(errorHandler(errors, SET_USER_FAILURE));
+                    if (errors.code === 'ECONNABORTED') {
+                        return { error: "Time out retry again" }
+                    }
+                    return errors.response.data;
+                });
+            }
+
+        }
+    }
+}
+
 
 
 export const asyncLogin = userData => {

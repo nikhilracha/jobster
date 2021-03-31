@@ -154,3 +154,12 @@ export const ProfileInfoSchema = Yup.object().shape({
         .required(`Required`)
         .typeError("It should be a number")
 })
+
+export const PartnerProfileInfoSchema = Yup.object().shape({
+    p_poc_phone: Yup.number()
+        .required(`Required`)
+        .typeError("It should be a number"),
+    p_zip: Yup.number()
+        .required(`Required`)
+        .typeError("It should be a number")
+})

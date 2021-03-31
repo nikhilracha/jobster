@@ -78,17 +78,10 @@ const Profile = (props) => {
             }
         }
         else {
-
             history.replace('/')
-
         }
 
-
-
     }, [localStorage.jwtToken])
-
-
-
 
 
     return (

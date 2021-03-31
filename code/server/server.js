@@ -47,6 +47,11 @@ router.post('/apply-job', user.applyJob);//Partner login route
 
 router.post('/p-login', partner.login);//Partner login route
 router.post('/p-register', partner.register);//Partner login route
+router.post('/create-p-profile', partner.createProfile);//Partner login route
+router.post('/p-tkn-update', partner.tkn_update);//user token route
+router.get('/p-profile/:id', partner.getProfile); //user profile retrieval
+router.post('/update-p-profile', partner.modifyPartnerProfile); //user profile info modification 
+router.post('/update-p-company-profile', partner.modifyPartnerCompanyProfile); //user profile info modification 
 
 router.post('/search', corefs.search);//postings search
 

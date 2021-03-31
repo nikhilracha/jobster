@@ -6,15 +6,25 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import {
     makeStyles,
+    Container,
+    Grid
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import setAuthToken from '../../../../utils/setAuthToken';
 import { setCurrentPartner } from '../../../../actions/authActions'
 import store from '../../../../store'
 import Header from '../Header';
-
+import Profileform from './ProfileForm';
+import ProfileComponent from './ProfileComponent';
+import PartnerCompanyProfile from './PartnerCompanyProfile';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.background.dark,
+        minHeight: '100%',
+        paddingBottom: theme.spacing(3),
+        paddingTop: theme.spacing(3),
+    }
 
 }));
 
@@ -22,6 +32,8 @@ const PartnerProfile = (props) => {
 
     const classes = useStyles();
     const history = useHistory();
+
+    const [profData, setProfData] = React.useState({})
 
     React.useEffect(() => {
         // Check for token
@@ -35,13 +47,25 @@ const PartnerProfile = (props) => {
             // Set user and isAuthenticated
             store.dispatch(setCurrentPartner(decoded));
 
+
+            axios({
+                method: "get",
+                url: "http://localhost:5000/api/p-profile/" + decoded.id,
+            })
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                    setProfData(response.data.payload)
+
+                })
+                .catch(function (error) {
+                    //handle error
+                    console.log(error);
+                });
+
             // Check for expired token
             const currentTime = Date.now() / 1000;
             if (decoded.exp < currentTime) {
-                //console.log("App.js is running inside if and if")
-                // Logout user
-                //store.dispatch(logoutUser());
-                // TODO: Clear current Profile
                 console.log("Session Expired")
                 // Redirect to login
                 // window.location.href = "/login";
@@ -61,6 +85,57 @@ const PartnerProfile = (props) => {
     return (
         <>
             <Header />
+            <div className={classes.root}>
+                {props.auth.user.profstatus ?
+
+                    <Container maxWidth="lg">
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                item
+                                lg={6}
+                                md={6}
+                                xs={12}
+                            >
+                                <ProfileComponent user={profData} />
+                            </Grid>
+                            <Grid
+                                item
+                                lg={6}
+                                md={6}
+                                xs={12}
+                            >
+                                <PartnerCompanyProfile user={profData} />
+                            </Grid>
+
+
+                        </Grid>
+                    </Container>
+
+
+                    // <p>created already and shows profile</p>
+                    :
+
+                    <Container maxWidth="lg">
+                        <Grid
+                            container
+                            spacing={3}
+                        >
+                            <Grid
+                                item
+                                lg={12}
+                                md={12}
+                                xs={12}
+                            >
+                                <Profileform id={props.auth.user.id} />
+                            </Grid>
+                        </Grid>
+                    </Container>
+                }
+                {/* } */}
+            </div>
         </>
     )
 }
