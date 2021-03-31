@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Grid, makeStyles, Typography } from '@material-ui/core
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#0e76a8',
+        backgroundColor: '#2867B2',
         
     },
     logoColor: {

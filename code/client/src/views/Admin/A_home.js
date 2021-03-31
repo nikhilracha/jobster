@@ -8,7 +8,7 @@ import {
   Button,
   Typography
 } from '@material-ui/core';
-import FeaturedVideoIcon from '@material-ui/icons/FeaturedVideo';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { useHistory } from 'react-router-dom';
 
@@ -95,7 +95,7 @@ function A_home() {
           <Grid item xs={3}>
             <Card>
               <CardContent className={classes.card}>
-                <FeaturedVideoIcon className={classes.icon} />
+                <PostAddIcon className={classes.icon} />
                 <Button
                   color='primary'
                   fullWidth

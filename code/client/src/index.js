@@ -26,8 +26,10 @@ import ClientInfo from 'views/Admin/ClientInfo';
 import PostAd from 'views/Admin/PostAd';
 import ClientDetails from 'views/Admin/ClientDetails';
 import AddClient from 'views/Admin/AddClient';
-import AppJobPostMgmt from 'views/JobPostMgmt/AppJobPostMgmt';
+import AppJobPostMgmt from 'views/Partner/components/JobPostMgmt/AppJobPostMgmt';
 import PartnerProfile from 'views/Partner/components/Profile/PartnerProfile';
+import ViewPostedJobs from 'views/Partner/components/JobPostMgmt/ViewPostedJobs';
+import DetailedJobs from 'views/Partner/components/JobPostMgmt/DetailedJobs';
 
 var hist = createBrowserHistory();
 
@@ -55,6 +57,8 @@ ReactDOM.render(
           <Route path="/postad" component={PostAd} />
           <Route path="/addClient" component={AddClient} />
           <Route path="/jobPost" component={AppJobPostMgmt} />
+          <Route path="/viewpostjobs" component={ViewPostedJobs} />
+          <Route path="/jobinfo" component={DetailedJobs} />
           <Route path="/" component={UserPortal} />
         </Switch>
         {/* </Router> */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, CssBaseline, createMuiTheme, ThemeProvider } from '@material-ui/core';
-import Header from 'components/Header-jobPostMgmt/Header';
+import Header from '../Header';
 import {
   Box,
   Container,
@@ -10,10 +10,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
   Button,
   TextField,
 } from '@material-ui/core';
-import { Formik } from 'formik';
+import { Formik,ErrorMessage } from 'formik';
 
 // For Date Picker.
 import 'date-fns';
@@ -36,7 +37,7 @@ import * as Yup from 'yup';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0e76a8",
+      main: "#2867B2",
     },
     background: {
       default: "#f4f5fd"
@@ -71,16 +72,15 @@ function AppJobPostMgmt() {
   const classes = useStyles();
 
   //  for dropdown menu.
-  const [age, setAge] = React.useState('');
+
 
   //  for date picker
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState();
 
   const handleDateChange = (date) => {
+  //   this.setState({
+  //     new_date: null
+  // });
     setSelectedDate(date);
   };
 
@@ -107,7 +107,8 @@ function AppJobPostMgmt() {
               jobCity: '',
               jobState: '',
               jobZip: '',
-              age: ''
+              jobType: '',
+              date: ''
             }}
             validationSchema={Yup.object().shape({
               jobRole: Yup.string().max(1000).required('Job Role is required'),
@@ -115,9 +116,18 @@ function AppJobPostMgmt() {
               jobCity: Yup.string().max(100).required(' Job City is required'),
               jobZip: Yup.string().max(10000).required(' Job Zipcode is required'),
               jobType: Yup.string().max(1000).required(' Job Type is required'),
+              date: Yup.string().max(10000).required(' Date is required'),
             })}
-            onSubmit={() => {
+            onSubmit={(values,actions) => {
               // navigate('/details', { replace: true });
+              if(text.length<=0){
+                alert("cannot be empty")
+              }
+              else{
+                values.jobDes = text;
+                console.log("xyz",values)
+              }
+
             }}
 
             // 
@@ -176,22 +186,31 @@ function AppJobPostMgmt() {
                     xs={12}
                     md={6}
                   >
-                    <FormControl variant="outlined" className={classes.formControl} fullWidth >
-                      <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+                    <FormControl 
+                    variant="outlined" 
+                    className={classes.formControl} 
+                    fullWidth
+                    error={Boolean(touched.jobType && errors.jobType)}
+                    helperText={touched.jobType && errors.jobType} 
+                    >
+                      <InputLabel>Job Type</InputLabel>
                       <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={age}
+                        value={values.jobType}
+                        name="jobType"
+                        onBlur={handleBlur}
                         onChange={handleChange}
-                        label="Age"
+                        label="jobType"
                       >
                         <MenuItem value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={"Full time"}>Full Time</MenuItem>
+                        <MenuItem value={"Part time"}>Full Time</MenuItem>
+                        <MenuItem value={"Internship"}>Internship</MenuItem>
                       </Select>
+                      <FormHelperText>{errors.jobType}</FormHelperText>
                     </FormControl>
                   </Grid>
                 </Grid>
@@ -259,23 +278,22 @@ function AppJobPostMgmt() {
                         xs={12}
                         md={6}
                     >
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                          <Grid container justify="space-around">
-                            <KeyboardDatePicker
-                              margin="normal"
-                              variant="inline"
-                              inputVariant="outlined"
-                              id="date-picker-dialog"
-                              label="Date picker dialog"
-                              format="MM/dd/yyyy"
-                              value={selectedDate}
-                              onChange={handleDateChange}
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
-                            />
-                          </Grid>
-                        </MuiPickersUtilsProvider>
+                        <TextField
+                          error={Boolean(touched.date && errors.date)}
+                          fullWidth
+                          helperText={touched.date && errors.date}
+                          label="Deadline Date"
+                          type="date"
+                          name="date"
+                          variant="outlined"
+                          margin="normal"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.date}
+                        />                      
                       </Grid>
                   </Grid>
 
@@ -288,6 +306,7 @@ function AppJobPostMgmt() {
                   >
                     Enter the Job Description.
                   </Typography>
+                  <ErrorMessage name="jobDes" />
                 </Box>
 
                 {/* for job description. */}

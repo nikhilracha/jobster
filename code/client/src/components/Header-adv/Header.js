@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#2867B2',
-
     },
     logoColor: {
         color: '#fff'
