@@ -19,10 +19,16 @@ import {
   TextField,
   Divider,
   Button,
-  Typography
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
 } from '@material-ui/core';
 import { Formik,ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+
 
 
 const theme = createMuiTheme({
@@ -66,6 +72,15 @@ const theme = createMuiTheme({
 
 function AccountPayment(props) {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
 
     const history = useHistory();
@@ -121,13 +136,7 @@ function AccountPayment(props) {
                 </Typography>
            </Container>
            </Box>
-          
-           <Box maxWidth="lg" className={classes.Container}>
-            <Grid container spacing={3}> 
-            
-            <Grid item lg={7}>
-                    
-                  <Formik
+           <Formik
                     initialValues={{
                     name: '',
                     date: '',
@@ -141,6 +150,7 @@ function AccountPayment(props) {
                     cno: Yup.string().max(100).required(' Card Number is required'),
                     })}
                     onSubmit={(values,actions) => {
+                      handleClickOpen();
                     }}
 
               >
@@ -154,6 +164,12 @@ function AccountPayment(props) {
               values
             }) => (
               <form onSubmit={handleSubmit} autoComplete="off">
+           <Box maxWidth="lg" className={classes.Container}>
+            <Grid container spacing={3}> 
+            
+            <Grid item lg={7}>
+                    
+                  
                 <Grid
                   container spacing={2}>
                   <Grid
@@ -238,9 +254,7 @@ function AccountPayment(props) {
                       </Grid>
                   </Grid>
 
-              </form>
-            )}
-          </Formik>
+             
 
           {/* <Grid item lg={2}>
                 </Grid> */}
@@ -291,7 +305,6 @@ function AccountPayment(props) {
                           size="small"
                           type="submit"
                           variant="contained"
-                          onClick={nav1}
                         >
                            Pay
                           </Button>
@@ -302,8 +315,33 @@ function AccountPayment(props) {
 
           </Grid>
         </Box>
+        </form>
+            )}
+          </Formik>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Confirm Payment?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            By clicking on proceed you will be charged.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Proceed
+          </Button>
+        </DialogActions>
+      </Dialog>
 
           </div>
+          
         </ThemeProvider>
     );
 }
