@@ -56,9 +56,10 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   avatar: {
-    height: 50,
-    width: 50,
-    justifyContent: 'center'
+    height: 75,
+    width: 75,
+    justifyContent: 'center',
+    marginBottom: '15px'
   },
   typo: {
     fontSize: "20px"
@@ -222,7 +223,7 @@ function DetailedJobs(props) {
               >
                 Applicants
                   </Typography>
-              <Box maxWidth="lg" className={classes.Container}>
+              <Box maxWidth="lg">
                 <Grid container spacing={3}>
                   {/* {
                     Object.keys(applData).map(index => ( */}
@@ -232,7 +233,7 @@ function DetailedJobs(props) {
                         <Box
                           alignItems="center"
                           display="flex"
-                          flexDirection="row"
+                          flexDirection="column"
                         >
                           <Avatar
                             className={classes.avatar}
@@ -272,19 +273,67 @@ function DetailedJobs(props) {
                       </Box>
                     </Card>
                   </Grid>
+
                   <Grid item lg={6}>
                     <Card>
                       <CardContent>
                         <Box
                           alignItems="center"
                           display="flex"
-                          flexDirection="row"
+                          flexDirection="column"
                         >
                           <Avatar
                             className={classes.avatar}
                           //src={user.u_profpic}
                           />
                           <Divider orientation="vertical" flexItem variant="middle" />
+
+                          <Typography
+                            align="center"
+                            color="textPrimary"
+                            gutterBottom
+                            variant="h6"
+                          >
+                            Sri Nikhil Racha
+                            </Typography>
+                        </Box>
+
+                      </CardContent>
+                      <Box flexGrow={1} />
+                      <Divider />
+                      <Box p={2}>
+                        <Grid
+                          Container
+                          justify='flex-end'
+                        >
+                          <Button
+                            color='primary'
+                            fullWidth
+                            size="small"
+                            type="submit"
+                            variant="contained"
+                          //onClick={() => history.push('/jobinfo', jobsData[index])}
+                          >
+                            View Application
+                          </Button>
+                        </Grid>
+                      </Box>
+                    </Card>
+                  </Grid>
+
+                  
+                  <Grid item lg={6}>
+                    <Card>
+                      <CardContent>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          flexDirection="column"
+                        >
+                          <Avatar
+                            className={classes.avatar}
+                          //src={user.u_profpic}
+                          />
 
                           <Typography
                             align="center"

@@ -30,6 +30,8 @@ import AppJobPostMgmt from 'views/Partner/components/JobPostMgmt/AppJobPostMgmt'
 import PartnerProfile from 'views/Partner/components/Profile/PartnerProfile';
 import ViewPostedJobs from 'views/Partner/components/JobPostMgmt/ViewPostedJobs';
 import DetailedJobs from 'views/Partner/components/JobPostMgmt/DetailedJobs';
+import NewAccount from 'views/Partner/components/Account/NewAccount';
+import AccountPayment from 'views/Partner/components/Account/AccountPayment';
 
 var hist = createBrowserHistory();
 
@@ -59,6 +61,8 @@ ReactDOM.render(
           <Route path="/jobPost" component={AppJobPostMgmt} />
           <Route path="/viewpostjobs" component={ViewPostedJobs} />
           <Route path="/jobinfo" component={DetailedJobs} />
+          <Route path="/p-account" component={NewAccount} />
+          <Route path="/p-accpayment" component={AccountPayment} />
           <Route path="/" component={UserPortal} />
         </Switch>
         {/* </Router> */}
