@@ -34,6 +34,7 @@ import parse from 'html-react-parser'
 import { useHistory } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+
 const theme = createMuiTheme({
   palette: {
     primary: {

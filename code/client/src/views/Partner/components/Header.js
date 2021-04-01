@@ -123,6 +123,7 @@ function Header(props) {
                             onClose={handleClose}
                         >
                             <MenuItem onClick={() => history.replace('/p-profile')}>Profile</MenuItem>
+                            <MenuItem onClick={() => history.replace('/p-account')}>Account</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>
                     </div>
