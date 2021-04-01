@@ -30,6 +30,7 @@ exports.register = async function (req, res) {
         "p_companyname": req.body.company,
         "p_company_logo": "",
         "p_profstatus": 0,
+        "p_ac_status": 0,
         "created_at": new Date()
     }
     dbConn.query("SELECT * FROM PARTNER WHERE p_email = ?", [req.body.email], async function (error, results, fields) {
@@ -99,6 +100,8 @@ exports.login = async function (req, res) {
                             zip: results[0].p_zip,
                             companyname: results[0].p_companyname,
                             profstatus: results[0].p_profstatus,
+                            acstatus: results[0].p_ac_status,
+                            acplan: results[0].p_ac_plan_type
                         };
 
                         //Sign the token
@@ -155,6 +158,8 @@ exports.tkn_update = async function (req, res) {
                     zip: results[0].p_zip,
                     companyname: results[0].p_companyname,
                     profstatus: results[0].p_profstatus,
+                    acstatus: results[0].p_ac_status,
+                    acplan: results[0].p_ac_plan_type
                 };
 
                 //Sign the token
