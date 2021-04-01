@@ -52,6 +52,9 @@ router.post('/p-tkn-update', partner.tkn_update);//user token route
 router.get('/p-profile/:id', partner.getProfile); //user profile retrieval
 router.post('/update-p-profile', partner.modifyPartnerProfile); //user profile info modification 
 router.post('/update-p-company-profile', partner.modifyPartnerCompanyProfile); //user profile info modification 
+router.post('/post-job', partner.createJob); //Create a new job
+router.get('/jobs/:id', partner.getJobs); //retrieve list of jobs
+router.get('/applied/:jid/:pid', partner.getApplied); //retrieve list of applicants
 
 router.post('/search', corefs.search);//postings search
 

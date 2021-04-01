@@ -338,3 +338,77 @@ exports.getProfile = async function (req, res) {
         }
     });
 }
+
+exports.createJob = async function (req, res) {
+    const errors = {}
+    console.log("in body", req.body);
+    var job = {
+        "p_ID": req.body.p_ID,
+        "j_role": req.body.jobRole,
+        "j_type": req.body.jobType,
+        "j_salary": req.body.jobSalary,
+        "j_description": req.body.jobDes,
+        "j_posted_date": req.body.j_posted_date,
+        "j_deadline": req.body.date,
+        "city": req.body.jobCity,
+        "state": req.body.jobState,
+        "country": req.body.jobCountry,
+        "zip": req.body.jobZip,
+    }
+    dbConn.query('INSERT INTO postings SET ?', job, function (error, results, fields) {
+        if (error) {
+            console.log("err", error)
+            errors.email = "Unable to register a job, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+            res.json({
+                status: true,
+                message: "Job Registered Successfully"
+            });
+        }
+    });
+
+}
+
+exports.getJobs = async function (req, res) {
+    const errors = {};
+    let id = req.params.id;
+    console.log("get from body", id);
+
+    dbConn.query(`select * from postings WHERE p_ID = ${id}; `, function (error, results, fields) {
+        if (error) {
+            errors.email = "Unable to find postings, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+
+            if (results.length > 0) {
+                res.json({
+                    success: true,
+                    payload: results
+                });
+            }
+        }
+    });
+}
+
+exports.getApplied = async function (req, res) {
+    const errors = {};
+    let jid = req.params.jid;
+    let pid = req.params.pid;
+    console.log("get from body", jid, pid);
+
+    // dbConn.query(`select * from postings WHERE p_ID = ${id}; `, function (error, results, fields) {
+    //     if (error) {
+    //         errors.email = "Unable to find postings, Please try again!";
+    //         return res.status(400).json(errors);
+    //     } else {
+
+    //         if (results.length > 0) {
+    //             res.json({
+    //                 success: true,
+    //                 payload: results
+    //             });
+    //         }
+    //     }
+    // });
+}
