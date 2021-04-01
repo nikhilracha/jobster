@@ -397,18 +397,24 @@ exports.getApplied = async function (req, res) {
     let pid = req.params.pid;
     console.log("get from body", jid, pid);
 
-    // dbConn.query(`select * from postings WHERE p_ID = ${id}; `, function (error, results, fields) {
-    //     if (error) {
-    //         errors.email = "Unable to find postings, Please try again!";
-    //         return res.status(400).json(errors);
-    //     } else {
+    dbConn.query(`select Application.u_ID, USER.u_firstname, USER.u_lastname from Application inner join USER on Application.u_ID=USER.u_ID where j_ID=${jid}; `, function (error, results, fields) {
+        if (error) {
+            errors.email = "Unable to find Applied users, Please try again!";
+            console.log("error", error);
+            return res.status(400).json(errors);
+        } else {
 
-    //         if (results.length > 0) {
-    //             res.json({
-    //                 success: true,
-    //                 payload: results
-    //             });
-    //         }
-    //     }
-    // });
+            if (results.length > 0) {
+                res.json({
+                    success: true,
+                    payload: results
+                });
+            }
+            else {
+                res.json({
+                    success: false
+                });
+            }
+        }
+    });
 }
