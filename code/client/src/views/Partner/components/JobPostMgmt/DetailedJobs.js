@@ -276,7 +276,7 @@ function DetailedJobs(props) {
                                 size="small"
                                 type="submit"
                                 variant="contained"
-                              //onClick={() => history.push('/jobinfo', jobsData[index])}
+                                onClick={() => history.push('/applicant', appData[index])}
                               >
                                 View Application
                         </Button>
