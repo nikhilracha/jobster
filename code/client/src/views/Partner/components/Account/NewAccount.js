@@ -227,7 +227,6 @@ function NewAccount(props) {
                           size="small"
                           type="submit"
                           variant="contained"
-                          onClick={nav1}
                         >
                            Pay $ 600
                           </Button>
@@ -283,7 +282,6 @@ function NewAccount(props) {
                           size="small"
                           type="submit"
                           variant="contained"
-                          onClick={nav1}
                         >
                            Pay $ 999
                           </Button>
