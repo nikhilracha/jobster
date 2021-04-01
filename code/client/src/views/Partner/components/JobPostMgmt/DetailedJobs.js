@@ -63,6 +63,10 @@ const useStyles = makeStyles({
   },
   typo: {
     fontSize: "20px"
+  },
+  empty: {
+    marginLeft: '20%',
+    marginTop: '30%'
   }
 
 })
@@ -70,6 +74,9 @@ const useStyles = makeStyles({
 function DetailedJobs(props) {
   const classes = useStyles();
   const history = useHistory();
+
+  const [appData, setAppData] = React.useState([]);
+  const [res, setRes] = React.useState(false);
 
   console.log("Data from List", props.location.state)
 
@@ -93,8 +100,9 @@ function DetailedJobs(props) {
       })
         .then(function (response) {
           //handle success
-          console.log(response);
-          //setJobsData(response.data.payload)
+          console.log(response.data.payload);
+          setAppData(response.data.payload)
+          setRes(response.data.success)
 
         })
         .catch(function (error) {
@@ -215,7 +223,7 @@ function DetailedJobs(props) {
               </Card>
             </Grid>
             <Grid item xs={8}>
-              <Typography
+              {res ? <Typography
                 color="textPrimary"
                 className={classes.typo}
                 gutterBottom
@@ -223,153 +231,75 @@ function DetailedJobs(props) {
               >
                 Applicants
                   </Typography>
+                :
+                <></>}
+
               <Box maxWidth="lg">
                 <Grid container spacing={3}>
-                  {/* {
-                    Object.keys(applData).map(index => ( */}
-                  <Grid item lg={6}>
-                    <Card>
-                      <CardContent>
-                        <Box
-                          alignItems="center"
-                          display="flex"
-                          flexDirection="column"
-                        >
-                          <Avatar
-                            className={classes.avatar}
-                          //src={user.u_profpic}
-                          />
-                          <Divider orientation="vertical" flexItem variant="middle" />
+                  {res ?
+                    Object.keys(appData).map(index => (
+                      <Grid item lg={6}>
+                        <Card>
+                          <CardContent>
+                            <Box
+                              alignItems="center"
+                              display="flex"
+                              flexDirection="column"
+                            >
+                              <Avatar
+                                className={classes.avatar}
+                              //src={user.u_profpic}
+                              />
+                              <Divider orientation="vertical" flexItem variant="middle" />
 
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            gutterBottom
-                            variant="h6"
-                          >
-                            Sri Nikhil Racha
-                            </Typography>
-                        </Box>
+                              <Typography
+                                align="center"
+                                color="textPrimary"
+                                gutterBottom
+                                variant="h6"
+                              >
+                                {appData[index].u_firstname + " " + appData[index].u_lastname}
+                              </Typography>
+                            </Box>
 
-                      </CardContent>
-                      <Box flexGrow={1} />
-                      <Divider />
-                      <Box p={2}>
-                        <Grid
-                          Container
-                          justify='flex-end'
-                        >
-                          <Button
-                            color='primary'
-                            fullWidth
-                            size="small"
-                            type="submit"
-                            variant="contained"
-                          //onClick={() => history.push('/jobinfo', jobsData[index])}
-                          >
-                            View Application
-                          </Button>
-                        </Grid>
-                      </Box>
-                    </Card>
-                  </Grid>
-
-                  <Grid item lg={6}>
-                    <Card>
-                      <CardContent>
-                        <Box
-                          alignItems="center"
-                          display="flex"
-                          flexDirection="column"
-                        >
-                          <Avatar
-                            className={classes.avatar}
-                          //src={user.u_profpic}
-                          />
-                          <Divider orientation="vertical" flexItem variant="middle" />
-
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            gutterBottom
-                            variant="h6"
-                          >
-                            Sri Nikhil Racha
-                            </Typography>
-                        </Box>
-
-                      </CardContent>
-                      <Box flexGrow={1} />
-                      <Divider />
-                      <Box p={2}>
-                        <Grid
-                          Container
-                          justify='flex-end'
-                        >
-                          <Button
-                            color='primary'
-                            fullWidth
-                            size="small"
-                            type="submit"
-                            variant="contained"
-                          //onClick={() => history.push('/jobinfo', jobsData[index])}
-                          >
-                            View Application
-                          </Button>
-                        </Grid>
-                      </Box>
-                    </Card>
-                  </Grid>
-
-                  
-                  <Grid item lg={6}>
-                    <Card>
-                      <CardContent>
-                        <Box
-                          alignItems="center"
-                          display="flex"
-                          flexDirection="column"
-                        >
-                          <Avatar
-                            className={classes.avatar}
-                          //src={user.u_profpic}
-                          />
-
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            gutterBottom
-                            variant="h6"
-                          >
-                            Sri Nikhil Racha
-                            </Typography>
-                        </Box>
-
-                      </CardContent>
-                      <Box flexGrow={1} />
-                      <Divider />
-                      <Box p={2}>
-                        <Grid
-                          Container
-                          justify='flex-end'
-                        >
-                          <Button
-                            color='primary'
-                            fullWidth
-                            size="small"
-                            type="submit"
-                            variant="contained"
-                          //onClick={() => history.push('/jobinfo', jobsData[index])}
-                          >
-                            View Application
-                          </Button>
-                        </Grid>
-                      </Box>
-                    </Card>
-                  </Grid>
-                  {/* 
+                          </CardContent>
+                          <Box flexGrow={1} />
+                          <Divider />
+                          <Box p={2}>
+                            <Grid
+                              Container
+                              justify='flex-end'
+                            >
+                              <Button
+                                color='primary'
+                                fullWidth
+                                size="small"
+                                type="submit"
+                                variant="contained"
+                                onClick={() => history.push('/applicant', appData[index])}
+                              >
+                                View Application
+                        </Button>
+                            </Grid>
+                          </Box>
+                        </Card>
+                      </Grid>
                     ))
-                  } */}
+                    :
+                    <Box maxWidth="lg" className={classes.Container}>
+                      <Typography
+                        color="textPrimary"
+                        className={classes.empty}
+                        gutterBottom
+                        variant='h5'
+                      >
+                        No one has applied yet!
+                  </Typography>
+
+                    </Box>
+                  }
+
+
                 </Grid>
               </Box>
             </Grid>
