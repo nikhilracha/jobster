@@ -101,7 +101,8 @@ exports.login = async function (req, res) {
                             companyname: results[0].p_companyname,
                             profstatus: results[0].p_profstatus,
                             acstatus: results[0].p_ac_status,
-                            acplan: results[0].p_ac_plan_type
+                            acplan: results[0].p_ac_plan_type,
+                            acsubscribed: results[0].subscribed_at
                         };
 
                         //Sign the token
@@ -159,7 +160,8 @@ exports.tkn_update = async function (req, res) {
                     companyname: results[0].p_companyname,
                     profstatus: results[0].p_profstatus,
                     acstatus: results[0].p_ac_status,
-                    acplan: results[0].p_ac_plan_type
+                    acplan: results[0].p_ac_plan_type,
+                    acsubscribed: results[0].subscribed_at
                 };
 
                 //Sign the token
