@@ -26,7 +26,7 @@ import {
   DialogContentText,
   DialogTitle
 } from '@material-ui/core';
-import { Formik,ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 
@@ -168,8 +168,7 @@ function AccountPayment(props) {
             <Grid container spacing={3}> 
             
             <Grid item lg={7}>
-                    
-                  
+                 
                 <Grid
                   container spacing={2}>
                   <Grid
@@ -334,7 +333,9 @@ function AccountPayment(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button
+          onClick={() => history.push('/p-accountinfo')}  
+           color="primary" autoFocus>
             Proceed
           </Button>
         </DialogActions>

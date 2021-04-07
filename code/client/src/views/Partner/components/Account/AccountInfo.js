@@ -15,12 +15,20 @@ import {
   CardContent,
   Container,
   TextField,
+  CardHeader,
   Box,
   Avatar,
   Divider,
   Button,
-  Typography
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
 } from '@material-ui/core';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const theme = createMuiTheme({
     palette: {
@@ -30,6 +38,12 @@ const theme = createMuiTheme({
       background: {
         default: "#f4f5fd"
       },
+      // closeButton: {
+      //   position: 'absolute',
+      //   right: theme.spacing(1),
+      //   top: theme.spacing(1),
+      //   color: theme.palette.grey[500],
+      // },
     },
   })
 
@@ -62,15 +76,24 @@ const theme = createMuiTheme({
         textAlign: 'left'
     },
     typo:{
-        textAlign: 'left',
-        backgroundColor: '#2867B2',
-        color: '#ffffff'
+        textAlign: 'center',
+        // backgroundColor: '#2867B2',
+        // color: '#ffffff'
     }
   })
   
 
 function AccountInfo(props) {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
 
     const history = useHistory();
@@ -111,8 +134,9 @@ function AccountInfo(props) {
         <Header />
         
         <Box className={classes.appMain}>
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
                 <Typography
+                className={classes.typo}
                 color="textPrimary"
                 variant="h4"
                 >
@@ -121,7 +145,200 @@ function AccountInfo(props) {
            </Container>
            </Box>
 
+           <Box maxWidth="lg" className={classes.Container}>
+            <Grid container spacing={3}> 
+
+            <Grid item lg={6}>
+              <Card>
+              <CardHeader
+                title="Your Account Summary"
+              />
+              <Divider />
+              <CardContent>
+                <TextField
+                  disabled
+                  fullWidth
+                  label="Your email"
+                  id="outlined-disabled"
+                  defaultValue="Example@email.com"
+                  variant="outlined"
+                />
+                <Divider />
+                <Box p={2}>
+                      <Grid
+                        Container
+                        justify='flex-end'
+                      >
+                        <Button
+                          color='primary'
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          variant="contained"
+                          onClick={() => handleClickOpen()}
+                        >
+                          Change Password
+                          </Button>
+                      </Grid>
+                    </Box>
+              </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item lg={6}>
+              <Card>
+              <CardHeader
+                title="Your Active Subscription"
+              />
+              <Divider />
+              <CardContent>
+              <Typography
+                        align="center"
+                        color="textPrimary"
+                        gutterBottom
+                        variant="h5"
+                      >
+                        Plan 1
+                      </Typography>
+                      <Typography
+                        align="center"
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        1 Month
+                      </Typography>
+                      <Typography
+                        align="center"
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        - Feature 1
+                      </Typography>
+                      <Typography
+                        align="center"
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        - Feature 2
+                      </Typography>
+                {/* <Divider /> */}
+                <Box p={2}>
+                      <Grid
+                        Container
+                        justify='flex-end'
+                      >
+                        <Button
+                          color='primary'
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          variant="contained"
+                        >
+                          Edit
+                          </Button>
+                      </Grid>
+                    </Box>
+              </CardContent>
+              </Card>
+            </Grid>
+
+            </Grid>
+            </Box>
+            <Formik
+                    initialValues={{
+                    current: '',
+                    new: '',
+                    newConfirm: '',
+                    }}
+                    validationSchema={Yup.object().shape({
+                    current: Yup.string().max(1000).required(' Current password is required'),
+                    new: Yup.string().max(10000).required(' New password is required'),
+                    newConfirm: Yup.string().max(100).required(' New password conformaton is required'),
+                    })}
+                    onSubmit={(values,actions) => {
+                      console.log(values)
+                    }}
+
+              >
+            {({
+              errors,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+              touched,
+              values
+            }) => (
+              <form onSubmit={handleSubmit} autoComplete="off">
+
+            <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        
+        <DialogTitle id="alert-dialog-title">{"Change Password?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Enter details to change password.
+            
+                <TextField
+                        error={Boolean(touched.current && errors.current)}
+                        fullWidth
+                        helperText={touched.current && errors.current}
+                        label="Current Password *"
+                        margin="normal"
+                        name="current"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.current}
+                        variant="outlined"
+                      />
+                <TextField
+                        error={Boolean(touched.new && errors.new)}
+                        fullWidth
+                        helperText={touched.new && errors.new}
+                        label="New Password *"
+                        margin="normal"
+                        name="new"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.new}
+                        variant="outlined"
+                      />
+                      <TextField
+                        error={Boolean(touched.newConfirm && errors.newConfirm)}
+                        fullWidth
+                        helperText={touched.newConfirm && errors.newConfirm}
+                        label="Confirm New Password *"
+                        margin="normal"
+                        name="newConfirm"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.newConfirm}
+                        variant="outlined"
+                      />
                 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button
+          // onClick={() => history.push('')}  
+           color="primary" type="submit" autoFocus>
+            Proceed
+          </Button>
+          
+        </DialogActions>
+        
+      </Dialog>
+      </form>
+            )}
+              
+</Formik>     
 
           </div>
         </ThemeProvider>
