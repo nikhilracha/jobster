@@ -352,6 +352,7 @@ function AccountInfo(props) {
                         fullWidth
                         helperText={touched.current && errors.current}
                         label="Current Password *"
+                        type="password"
                         margin="normal"
                         name="current"
                         onBlur={handleBlur}
@@ -365,6 +366,7 @@ function AccountInfo(props) {
                         helperText={touched.new && errors.new}
                         label="New Password *"
                         margin="normal"
+                        type="password"
                         name="new"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -376,6 +378,7 @@ function AccountInfo(props) {
                         fullWidth
                         helperText={touched.newConfirm && errors.newConfirm}
                         label="Confirm New Password *"
+                        type="password"
                         margin="normal"
                         name="newConfirm"
                         onBlur={handleBlur}
