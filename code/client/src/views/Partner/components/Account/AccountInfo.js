@@ -8,7 +8,9 @@ import setAuthToken from "../../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import store from "../../../../store";
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import Header from '../Header';
+import MuiAlert from '@material-ui/lab/Alert';
 import {
   Grid,
   Card,
@@ -19,6 +21,7 @@ import {
   Box,
   Avatar,
   Divider,
+  Snackbar,
   Button,
   Typography,
   Dialog,
@@ -81,11 +84,28 @@ const theme = createMuiTheme({
         // color: '#ffffff'
     }
   })
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   
 
 function AccountInfo(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [msg, setMsg] = React.useState(false);
+
+    const handleMsg = () => {
+      setMsg(true);
+    };
+
+    const handleCloseMsg = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setMsg(false);
+    };
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -122,6 +142,8 @@ function AccountInfo(props) {
                 // Redirect to login
                 // window.location.href = "/login";
             }
+
+            //if(decoded.acstatus==0) history.replace('/p-new-account') 
         }
         else {
             history.replace('/partner')
@@ -140,7 +162,7 @@ function AccountInfo(props) {
                 color="textPrimary"
                 variant="h4"
                 >
-                    Hi Adam!
+                    Hi {`${props.auth.user.fname} ${props.auth.user.lname}!`}
                 </Typography>
            </Container>
            </Box>
@@ -160,8 +182,23 @@ function AccountInfo(props) {
                   fullWidth
                   label="Your email"
                   id="outlined-disabled"
-                  defaultValue="Example@email.com"
+                  value={props.auth.user.email}
                   variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                &nbsp;
+                <TextField
+                  disabled
+                  fullWidth
+                  label="Purchased Subscription date"
+                  id="outlined-disabled"
+                  value= '20th April 2021'//{props.auth.user.email}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
                 <Divider />
                 <Box p={2}>
@@ -173,7 +210,7 @@ function AccountInfo(props) {
                           color='primary'
                           fullWidth
                           size="large"
-                          type="submit"
+                          // type="submit"
                           variant="contained"
                           onClick={() => handleClickOpen()}
                         >
@@ -212,15 +249,16 @@ function AccountInfo(props) {
                         color="textPrimary"
                         variant="body1"
                       >
-                        - Feature 1
+                        - Unlimited Job Posting
                       </Typography>
                       <Typography
                         align="center"
                         color="textPrimary"
                         variant="body1"
                       >
-                        - Feature 2
+                        - 24/7 support
                       </Typography>
+                      &nbsp;
                 {/* <Divider /> */}
                 <Box p={2}>
                       <Grid
@@ -231,10 +269,10 @@ function AccountInfo(props) {
                           color='primary'
                           fullWidth
                           size="large"
-                          type="submit"
+                          // type="submit"
                           variant="contained"
                         >
-                          Edit
+                          Manage
                           </Button>
                       </Grid>
                     </Box>
@@ -244,6 +282,7 @@ function AccountInfo(props) {
 
             </Grid>
             </Box>
+            
             <Formik
                     initialValues={{
                     current: '',
@@ -253,10 +292,34 @@ function AccountInfo(props) {
                     validationSchema={Yup.object().shape({
                     current: Yup.string().max(1000).required(' Current password is required'),
                     new: Yup.string().max(10000).required(' New password is required'),
-                    newConfirm: Yup.string().max(100).required(' New password conformaton is required'),
+                    newConfirm:    Yup.string()
+                    .oneOf([Yup.ref('new'), null], 'Passwords must match'), 
                     })}
                     onSubmit={(values,actions) => {
+                      values.email = props.auth.user.email
                       console.log(values)
+                      
+                      axios({
+                        method: "post",
+                        url: "http://localhost:5000/api/p-pass-change",
+                        data: values,
+                      })
+                        .then(function (response) {
+                          //handle success
+                          console.log(response);
+                          if (response.data.success) {
+                            console.log("Updated password")
+                            handleClose()
+                            handleMsg()
+                            actions.resetForm();
+                          }
+              
+                        })
+                        .catch(function (error) {
+                          //handle error
+                          console.log(error.response.data);
+                          actions.setErrors(error.response.data)
+                        });
                     }}
 
               >
@@ -280,6 +343,7 @@ function AccountInfo(props) {
         
         <DialogTitle id="alert-dialog-title">{"Change Password?"}</DialogTitle>
         <DialogContent>
+
           <DialogContentText id="alert-dialog-description">
             Enter details to change password.
             
@@ -319,8 +383,10 @@ function AccountInfo(props) {
                         value={values.newConfirm}
                         variant="outlined"
                       />
+                      
                 
           </DialogContentText>
+ 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -328,7 +394,7 @@ function AccountInfo(props) {
           </Button>
           <Button
           // onClick={() => history.push('')}  
-           color="primary" type="submit" autoFocus>
+           color="primary" variant="contained" onClick={handleSubmit} autoFocus>
             Proceed
           </Button>
           
@@ -338,7 +404,13 @@ function AccountInfo(props) {
       </form>
             )}
               
-</Formik>     
+</Formik>  
+<Snackbar open={msg} onClose={handleCloseMsg} autoHideDuration={3000} >
+        <Alert onClose={handleCloseMsg} severity="success">
+          Password Changed Successfully!
+        </Alert>
+      </Snackbar>
+  
 
           </div>
         </ThemeProvider>

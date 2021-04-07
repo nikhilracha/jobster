@@ -47,6 +47,7 @@ router.post('/apply-job', user.applyJob);//Partner login route
 
 router.post('/p-login', partner.login);//Partner login route
 router.post('/p-register', partner.register);//Partner login route
+router.post('/p-pass-change', partner.changePassword);//Partner change password
 router.post('/create-p-profile', partner.createProfile);//Partner login route
 router.post('/p-tkn-update', partner.tkn_update);//user token route
 router.get('/p-profile/:id', partner.getProfile); //user profile retrieval

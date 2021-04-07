@@ -89,9 +89,8 @@ exports.login = async function (req, res) {
                         //user matched
                         const payload = {
                             id: results[0].p_ID,
-                            name: results[0].p_lastname,
                             email: results[0].p_email,
-                            fname: results[0].p_poc_fname,
+                            fname: results[0].p_poc_firstname,
                             lname: results[0].p_poc_lastname,
                             phone: results[0].p_poc_phone,
                             street: results[0].p_street,
@@ -133,6 +132,51 @@ exports.login = async function (req, res) {
         }
     });
 }
+
+exports.changePassword = async function (req, res) {
+    var email = req.body.email;
+    var old = req.body.current;
+    var password = req.body.new;
+    const encryptedPassword = await bcrypt.hash(password, 10)
+
+
+    console.log("in body", req.body);
+    dbConn.query("SELECT * FROM PARTNER WHERE p_email = ?", [email], async function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.send({
+                "code": 400,
+                "failed": error
+            })
+        } else {
+            if (results.length > 0) {
+                bcrypt.compare(old, results[0].p_pass).then(isMatch => {
+                    if (isMatch) {
+                        dbConn.query(`UPDATE PARTNER SET p_pass='${encryptedPassword}' where p_email='${email}'`, function (error, results, fields) {
+                            if (error) {
+                                console.log(error)
+                                return res.status(400).json({ current: "Unable to update, Please try again!" });
+                            } else {
+                                res.json({
+                                    tkn_type: "partner",
+                                    success: true,
+                                    message: "Updated Password Successfully"
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        return res.status(400).json({
+                            current: "Password didn't match"
+                        });
+                    }
+                })
+            }
+        }
+    });
+}
+
+
 
 exports.tkn_update = async function (req, res) {
     console.log("body", req.body)
