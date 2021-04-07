@@ -97,7 +97,7 @@ function ProfileForm(props) {
                                         /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
                                         'Enter correct url!'
                                     )
-                                    .required('Logo Link is required'),
+                                    .required('Website url is required'),
                                 foundedYear: Yup.string().max(255).required('Company Foundation Year is required'),
                                 specialties: Yup.string().max(255).required('Company Specialties is required'),
                             })}

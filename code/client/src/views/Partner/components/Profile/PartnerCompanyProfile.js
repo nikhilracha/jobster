@@ -22,7 +22,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 
 
-//import { PartnerProfileInfoSchema } from '../../../../validation/Validations';
+import { PartnerCompanyInfoSchema } from '../../../../validation/Validations';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,7 +52,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
     return (
         <Formik
             enableReinitialize
-            //validationSchema={PartnerProfileInfoSchema}
+            validationSchema={PartnerCompanyInfoSchema}
             initialValues={{
                 p_ID: user.p_ID,
                 c_name: user.c_name,
@@ -142,6 +142,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_name && errors.c_name)}
                                                     id="c_name"
                                                     name="c_name"
                                                     label="Company name"
@@ -149,6 +150,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_name}
+                                                    helperText={touched.c_name && errors.c_name}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
@@ -158,6 +160,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_industry && errors.c_industry)}
                                                     id="c_industry"
                                                     name="c_industry"
                                                     label="Company Industry"
@@ -165,6 +168,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_industry}
+                                                    helperText={touched.c_industry && errors.c_industry}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
@@ -176,6 +180,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={12} md={12} lg={12} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_website && errors.c_website)}
                                                     id="c_website"
                                                     name="c_website"
                                                     label="Website"
@@ -183,6 +188,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_website}
+                                                    helperText={touched.c_website && errors.c_website}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
@@ -194,6 +200,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={12} md={12} lg={12} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_headquarters && errors.c_headquarters)}
                                                     id="c_headquarters"
                                                     name="c_headquarters"
                                                     label="Headquarters"
@@ -201,18 +208,19 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_headquarters}
+                                                    helperText={touched.c_headquarters && errors.c_headquarters}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
                                                     fullWidth={true}
                                                 />
-                                                <ErrorMessage name="c_headquarters" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                                             </Grid>
                                         </Grid>
                                         <Grid container spacing={3}>
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_revenue && errors.c_revenue)}
                                                     id="c_revenue"
                                                     name="c_revenue"
                                                     label="Revenue"
@@ -220,6 +228,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_revenue}
+                                                    helperText={touched.c_revenue && errors.c_revenue}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
@@ -229,6 +238,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_founded && errors.c_founded)}
                                                     id="c_founded"
                                                     name="c_founded"
                                                     label="Founded"
@@ -236,6 +246,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                         shrink: true,
                                                     }}
                                                     value={values.c_founded}
+                                                    helperText={touched.c_founded && errors.c_founded}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
@@ -247,6 +258,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_size && errors.c_size)}
                                                     id="c_size"
                                                     name="c_size"
                                                     label="Size"
@@ -255,6 +267,7 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                                     }}
                                                     value={values.c_size}
                                                     onChange={handleChange}
+                                                    helperText={touched.c_size && errors.c_size}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
                                                     fullWidth={true}
@@ -263,19 +276,20 @@ const PartnerCompanyProfile = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.c_specialities && errors.c_specialities)}
                                                     id="c_specialities"
                                                     name="c_specialities"
                                                     label="Specialities"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
+                                                    helperText={touched.c_specialities && errors.c_specialities}
                                                     value={values.c_specialities}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     disabled={edit}
                                                     fullWidth={true}
                                                 />
-                                                <ErrorMessage name="c_specialities" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                                             </Grid>
                                         </Grid>
                                     </Box>

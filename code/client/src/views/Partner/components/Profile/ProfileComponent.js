@@ -150,6 +150,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_poc_firstname && errors.p_poc_firstname)}
+                                                    helperText={touched.p_poc_firstname && errors.p_poc_firstname}
                                                     id="p_poc_firstname"
                                                     name="p_poc_firstname"
                                                     label="First Name"
@@ -166,6 +168,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_poc_lastname && errors.p_poc_lastname)}
+                                                    helperText={touched.p_poc_lastname && errors.p_poc_lastname}
                                                     id="p_poc_lastname"
                                                     name="p_poc_lastname"
                                                     label="Last Name"
@@ -202,6 +206,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                             <Grid item xs={12} md={12} lg={12} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_poc_phone && errors.p_poc_phone)}
+                                                    helperText={touched.p_poc_phone && errors.p_poc_phone}
                                                     id="p_poc_phone"
                                                     name="p_poc_phone"
                                                     label="Phone no"
@@ -214,13 +220,14 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                                     disabled={edit}
                                                     fullWidth={true}
                                                 />
-                                                <ErrorMessage name="p_poc_phone" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                                             </Grid>
                                         </Grid>
                                         <Grid container spacing={3}>
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_street && errors.p_street)}
+                                                    helperText={touched.p_street && errors.p_street}
                                                     id="p_street"
                                                     name="p_street"
                                                     label="Street"
@@ -237,6 +244,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_city && errors.p_city)}
+                                                    helperText={touched.p_city && errors.p_city}
                                                     id="p_city"
                                                     name="p_city"
                                                     label="City"
@@ -255,6 +264,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                             <Grid item xs={6} md={6} lg={6} >
                                                 {/* Name */}
                                                 <TextField
+                                                    error={Boolean(touched.p_state && errors.p_state)}
+                                                    helperText={touched.p_state && errors.p_state}
                                                     id="p_state"
                                                     name="p_state"
                                                     label="State"
@@ -272,6 +283,8 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                                 {/* Name */}
                                                 <TextField
                                                     id="p_zip"
+                                                    error={Boolean(touched.p_zip && errors.p_zip)}
+                                                    helperText={touched.p_zip && errors.p_zip}
                                                     name="p_zip"
                                                     label="Zip"
                                                     InputLabelProps={{
@@ -283,7 +296,6 @@ const ProfileComponent = (props, { className, ...rest }) => {
                                                     disabled={edit}
                                                     fullWidth={true}
                                                 />
-                                                <ErrorMessage name="p_zip" render={msg => <div style={{ color: '#fc2403' }}>{msg}</div>} />
                                             </Grid>
                                         </Grid>
                                     </Box>

@@ -156,10 +156,31 @@ export const ProfileInfoSchema = Yup.object().shape({
 })
 
 export const PartnerProfileInfoSchema = Yup.object().shape({
+    p_poc_firstname: Yup.string().max(100).required('First Name is required'),
+    p_poc_lastname: Yup.string().max(100).required('Last Name is required'),
+    p_email: Yup.string().email('Invalid email').required('Email is required'),
+    p_street: Yup.string().max(100).required('Street is required'),
+    p_city: Yup.string().max(100).required('City is required'),
+    p_state: Yup.string().max(100).required('State is required'),
     p_poc_phone: Yup.number()
         .required(`Required`)
         .typeError("It should be a number"),
     p_zip: Yup.number()
         .required(`Required`)
         .typeError("It should be a number")
+})
+
+export const PartnerCompanyInfoSchema = Yup.object().shape({
+    c_name: Yup.string().max(30).required('Company Name is required'),
+    c_website: Yup.string().matches(
+        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        'Enter correct url!'
+    )
+        .required('Website url is required'),
+    c_industry: Yup.string().max(100).required('Company Industry is required'),
+    c_size: Yup.string().max(255).required('Company Total Number of Employees is required'),
+    c_headquarters: Yup.string().max(100).required('Headquater Location is required'),
+    c_revenue: Yup.string().max(100).required('Company Revenue is required'),
+    c_founded: Yup.string().max(100).required('Company Foundation Year is required'),
+    c_specialities: Yup.string().max(100).required('Company Specialties is required'),
 })
