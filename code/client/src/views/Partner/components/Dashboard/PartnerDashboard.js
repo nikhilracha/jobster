@@ -117,7 +117,7 @@ function PartnerDashboard(props) {
                   size="large"
                   type="submit"
                   variant="contained"
-                //onClick={nav1}
+                  onClick={nav1}
                 >
                   View Posted Job
                 </Button>
@@ -134,7 +134,7 @@ function PartnerDashboard(props) {
                   size="large"
                   type="submit"
                   variant="contained"
-                //onClick={nav2}
+                  onClick={nav2}
                 >
                   Post A New Job
                 </Button>

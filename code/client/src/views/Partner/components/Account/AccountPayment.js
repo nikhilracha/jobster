@@ -126,7 +126,7 @@ function AccountPayment(props) {
               color="textPrimary"
               variant="h4"
             >
-              You have Selected
+              You have Selected Plan 1
                 </Typography>
             <Typography
               color="textPrimary"
@@ -274,14 +274,14 @@ function AccountPayment(props) {
                             gutterBottom
                             variant="body 1"
                           >
-                            Subtotal: $
+                            Subtotal: $ 200
                       </Typography>
                           <Typography
                             align="center"
                             color="textPrimary"
                             variant="body1"
                           >
-                            Tax: $
+                            Tax: $ 8
                       </Typography>
 
                           <Typography
@@ -289,7 +289,7 @@ function AccountPayment(props) {
                             color="textPrimary"
                             variant="body1"
                           >
-                            Total: $
+                            Total: $ 208.00
                       </Typography>
                         </CardContent>
                         <Divider />

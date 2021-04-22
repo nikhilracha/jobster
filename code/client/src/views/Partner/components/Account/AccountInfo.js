@@ -143,7 +143,7 @@ function AccountInfo(props) {
                 // window.location.href = "/login";
             }
 
-            //if(decoded.acstatus==0) history.replace('/p-new-account') 
+            // if(decoded.acstatus==0) history.replace('/p-new-account') 
         }
         else {
             history.replace('/partner')
