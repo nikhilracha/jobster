@@ -346,6 +346,28 @@ exports.modifyPartnerCompanyProfile = async function (req, res) {
     });
 }
 
+exports.payment = async function (req, res) {
+    const errors = {}
+    console.log("From body", req.body);
+    let id = req.body.id;
+    let plan = req.body.type
+
+    dbConn.query(`update PARTNER SET p_ac_status = '1', p_ac_plan_type = '${plan}', subscribed_at = '${Date.now()}' where p_ID = ${id} `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            errors.email = "Unable to update Partner payment, Please try again!";
+            return res.status(400).json(errors);
+        } else {
+            console.log("rrr", results)
+            if (results.affectedRows > 0) {
+                res.json({
+                    success: true,
+                });
+            }
+        }
+    });
+}
+
 exports.getProfile = async function (req, res) {
     const errors = {};
     let id = req.params.id;

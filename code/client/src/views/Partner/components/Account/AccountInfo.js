@@ -95,6 +95,9 @@ function AccountInfo(props) {
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
 
+    let purchased = new Date(parseInt(props.auth.user.acsubscribed))
+
+
     const handleMsg = () => {
       setMsg(true);
     };
@@ -143,7 +146,7 @@ function AccountInfo(props) {
                 // window.location.href = "/login";
             }
 
-            // if(decoded.acstatus==0) history.replace('/p-new-account') 
+            if(decoded.acstatus==0) history.replace('/p-new-account') 
         }
         else {
             history.replace('/partner')
@@ -194,7 +197,7 @@ function AccountInfo(props) {
                   fullWidth
                   label="Purchased Subscription date"
                   id="outlined-disabled"
-                  value= '20th April 2021'//{props.auth.user.email}
+                  value= {purchased.toDateString()}
                   variant="outlined"
                   InputLabelProps={{
                     shrink: true,
@@ -235,14 +238,14 @@ function AccountInfo(props) {
                         gutterBottom
                         variant="h5"
                       >
-                        Plan 1
+                        {props.auth.user.acplan === 200 ? `Plan 1` : props.auth.user.acplan === 600 ? `Plan 2` : `Plan 3`}
                       </Typography>
                       <Typography
                         align="center"
                         color="textPrimary"
                         variant="body1"
                       >
-                        1 Month
+                        {props.auth.user.acplan === 200 ? `1 Month` : props.auth.user.acplan === 600 ? `6 Months` : `12 Months`}
                       </Typography>
                       <Typography
                         align="center"
@@ -269,7 +272,7 @@ function AccountInfo(props) {
                           color='primary'
                           fullWidth
                           size="large"
-                          // type="submit"
+                          onClick={()=>history.push('/p-ac-manage')}
                           variant="contained"
                         >
                           Manage

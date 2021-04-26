@@ -147,16 +147,16 @@ function AppJobPostMgmt(props) {
                   var d = new Date(Date.now());
                   values.j_posted_date = d.toISOString().split('T')[0];
                   console.log("xyz", values)
-                  // axios.post('http://localhost:5000/api/post-job', values).then(response => {
-                  //   if (response.data.status) {
-                  //     console.log("response", response.data);
-                  //     alert(response.data.message)
-                  //     history.replace('/partner')
-                  //   }
-                  // })
-                  //   .catch(error => {
-                  //     console.log(error);
-                  //   })
+                  axios.post('http://localhost:5000/api/post-job', values).then(response => {
+                    if (response.data.status) {
+                      console.log("response", response.data);
+                      alert(response.data.message)
+                      history.replace('/partner')
+                    }
+                  })
+                    .catch(error => {
+                      console.log(error);
+                    })
                 }
 
               }}

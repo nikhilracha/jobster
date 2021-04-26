@@ -50,6 +50,7 @@ router.post('/p-register', partner.register);//Partner login route
 router.post('/p-pass-change', partner.changePassword);//Partner change password
 router.post('/create-p-profile', partner.createProfile);//Partner login route
 router.post('/p-tkn-update', partner.tkn_update);//user token route
+router.post('/payment', partner.payment);//user token route
 router.get('/p-profile/:id', partner.getProfile); //user profile retrieval
 router.post('/update-p-profile', partner.modifyPartnerProfile); //user profile info modification 
 router.post('/update-p-company-profile', partner.modifyPartnerCompanyProfile); //user profile info modification 

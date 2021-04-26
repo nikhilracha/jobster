@@ -3,19 +3,21 @@ import { makeStyles, CssBaseline, createMuiTheme, ThemeProvider } from '@materia
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setCurrentPartner } from 'actions/authActions';
+import { setCurrentPartner, asyncPartnerTokenUpdate } from 'actions/authActions';
 import setAuthToken from "../../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import store from "../../../../store";
 import { useHistory } from 'react-router-dom';
 import Header from '../Header';
+import MuiAlert from '@material-ui/lab/Alert';
+import axios from 'axios';
 import {
   Grid,
   Card,
   CardContent,
   Container,
   Box,
-  Avatar,
+  Snackbar,
   TextField,
   Divider,
   Button,
@@ -69,10 +71,31 @@ const useStyles = makeStyles({
   }
 })
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 
 function AccountPayment(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [msg, setMsg] = React.useState(false);
+
+  let type = props.location.state.plan
+  let tax = ((8.875 / 100) * parseInt(type))
+  let total = parseInt(type) + tax
+
+  const handleMsg = () => {
+    setMsg(true);
+  };
+
+  const handleCloseMsg = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setMsg(false);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,6 +104,11 @@ function AccountPayment(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const pay = () => {
+    console.log("Paying")
+  }
+
 
 
   const history = useHistory();
@@ -126,8 +154,8 @@ function AccountPayment(props) {
               color="textPrimary"
               variant="h4"
             >
-              You have Selected Plan 1
-                </Typography>
+              You have Selected:  {type === '200' ? `Plan 1` : type === '600' ? `Plan 2` : `Plan 3`}
+            </Typography>
             <Typography
               color="textPrimary"
               variant="body1"
@@ -144,13 +172,39 @@ function AccountPayment(props) {
             cno: '',
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().max(1000).required(' Full name is required'),
+            name: Yup.string().max(50).required(' Full name is required'),
             date: Yup.string().max(10000).required(' Date is required'),
-            securityCode: Yup.string().max(100).required(' Security Code is required'),
-            cno: Yup.string().max(100).required(' Card Number is required'),
+            securityCode: Yup.string().matches(/^[0-9]+$/, "Must be only numbers").min(3, "Invalid code")
+              .max(4, "Invalid code").typeError("It should be a number").required(' Security Code is required'),
+            cno: Yup.string().matches(/^[0-9]+$/, "Must be only numbers").min(16, "Invalid card details").max(16, "Invalid card details").required('Card Number is required'),
           })}
           onSubmit={(values, actions) => {
-            handleClickOpen();
+            values.type = type;
+            values.id = props.auth.user.id;
+            //handleClickOpen(values);
+            console.log("values", values)
+            axios.post('http://localhost:5000/api/payment', values).then(response => {
+              if (response.data.success) {
+                props.asyncPartnerTokenUpdate({ email: props.auth.user.email })
+                  .then(res => {
+                    console.log("response", res);
+                    if (res.error) {
+                      console.log("error in updating token", res.error)
+                    }
+                    else {
+                      handleMsg();
+                      setTimeout(() => {
+                        history.replace('/p-account')
+                      }, 3000)
+                      console.log("Updated the token")
+                    }
+                  })
+              }
+            })
+              .catch(error => {
+                console.log(error);
+              })
+
           }}
 
         >
@@ -163,189 +217,167 @@ function AccountPayment(props) {
             touched,
             values
           }) => (
-              <form onSubmit={handleSubmit} autoComplete="off">
-                <Box maxWidth="lg" className={classes.Container}>
-                  <Grid container spacing={3}>
+              <>
+                <form onSubmit={handleSubmit} autoComplete="off">
+                  <Box maxWidth="lg" className={classes.Container}>
+                    <Grid container spacing={3}>
 
-                    <Grid item lg={7}>
-
-                      <Grid
-                        container spacing={2}>
-                        <Grid
-                          item
-                          xs={12}
-                          md={6}
-                        >
-                          <TextField
-                            error={Boolean(touched.name && errors.name)}
-                            fullWidth
-                            helperText={touched.name && errors.name}
-                            label="Name on card *"
-                            margin="normal"
-                            name="name"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.name}
-                            variant="outlined"
-                          />
-                        </Grid>
+                      <Grid item lg={7}>
 
                         <Grid
-                          item
-                          xs={12}
-                          md={6}
-                        >
-                          <TextField
-                            error={Boolean(touched.date && errors.date)}
-                            fullWidth
-                            helperText={touched.date && errors.date}
-                            label="Expiry Date *"
-                            type="date"
-                            name="date"
-                            variant="outlined"
-                            margin="normal"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.date}
-                          />
+                          container spacing={2}>
+                          <Grid
+                            item
+                            xs={12}
+                            md={6}
+                          >
+                            <TextField
+                              error={Boolean(touched.name && errors.name)}
+                              fullWidth
+                              helperText={touched.name && errors.name}
+                              label="Name on card *"
+                              margin="normal"
+                              name="name"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.name}
+                              variant="outlined"
+                            />
+                          </Grid>
+
+                          <Grid
+                            item
+                            xs={12}
+                            md={6}
+                          >
+                            <TextField
+                              error={Boolean(touched.date && errors.date)}
+                              fullWidth
+                              helperText={touched.date && errors.date}
+                              label="Expiry Date *"
+                              type="month"
+                              name="date"
+                              variant="outlined"
+                              margin="normal"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.date}
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
 
-                      <Grid container spacing={2}>
-                        <Grid
-                          item
-                          xs={12}
-                          md={8}
-                        >
-                          <TextField
-                            error={Boolean(touched.cno && errors.cno)}
-                            fullWidth
-                            helperText={touched.cno && errors.cno}
-                            label="Card Number *"
-                            margin="normal"
-                            name="cno"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.cno}
-                            variant="outlined"
-                          />
+                        <Grid container spacing={2}>
+                          <Grid
+                            item
+                            xs={12}
+                            md={8}
+                          >
+                            <TextField
+                              error={Boolean(touched.cno && errors.cno)}
+                              fullWidth
+                              helperText={touched.cno && errors.cno}
+                              label="Card Number *"
+                              margin="normal"
+                              name="cno"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.cno}
+                              variant="outlined"
+                            />
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            md={4}
+                          >
+                            <TextField
+                              error={Boolean(touched.securityCode && errors.securityCode)}
+                              fullWidth
+                              helperText={touched.securityCode && errors.securityCode}
+                              label="Security Code/CVV   *"
+                              margin="normal"
+                              name="securityCode"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.securityCode}
+                              variant="outlined"
+                            />
+                          </Grid>
                         </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          md={4}
-                        >
-                          <TextField
-                            error={Boolean(touched.securityCode && errors.securityCode)}
-                            fullWidth
-                            helperText={touched.securityCode && errors.securityCode}
-                            label="Security Code/CVV   *"
-                            margin="normal"
-                            name="securityCode"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.securityCode}
-                            variant="outlined"
-                          />
-                        </Grid>
-                      </Grid>
 
 
 
-                      {/* <Grid item lg={2}>
+                        {/* <Grid item lg={2}>
                 </Grid> */}
 
-                    </Grid>
+                      </Grid>
 
-                    <Grid item lg={1}>
+                      <Grid item lg={1}>
 
-                    </Grid>
+                      </Grid>
 
-                    <Grid item lg={4}>
-                      <Card>
-                        <CardContent>
+                      <Grid item lg={4}>
+                        <Card>
+                          <CardContent>
 
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            gutterBottom
-                            variant="body 1"
-                          >
-                            Subtotal: $ 200
-                      </Typography>
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            Tax: $ 8
-                      </Typography>
-
-                          <Typography
-                            align="center"
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            Total: $ 208.00
-                      </Typography>
-                        </CardContent>
-                        <Divider />
-                        <Box p={2}>
-                          <Grid
-                            Container
-                            justify='flex-end'
-                          >
-                            <Button
-                              color='primary'
-                              fullWidth
-                              size="small"
-                              type="submit"
-                              variant="contained"
+                            <Typography
+                              align="center"
+                              color="textPrimary"
+                              gutterBottom
+                              variant="body 1"
                             >
-                              Pay
-                          </Button>
-                          </Grid>
-                        </Box>
-                      </Card>
-                    </Grid>
+                              Subtotal: $ {type}
+                            </Typography>
+                            <Typography
+                              align="center"
+                              color="textPrimary"
+                              variant="body1"
+                            >
+                              Tax (8.875%): $ {tax.toFixed(2)}
+                            </Typography>
 
-                  </Grid>
-                </Box>
-              </form>
+                            <Typography
+                              align="center"
+                              color="textPrimary"
+                              variant="body1"
+                            >
+                              Total: ${total.toFixed(2)}
+                            </Typography>
+                          </CardContent>
+                          <Divider />
+                          <Box p={2}>
+                            <Grid
+                              Container
+                              justify='flex-end'
+                            >
+                              <Button
+                                color='primary'
+                                fullWidth
+                                size="small"
+                                type="submit"
+                                variant="contained"
+                              >
+                                Pay
+                          </Button>
+                            </Grid>
+                          </Box>
+                        </Card>
+                      </Grid>
+
+                    </Grid>
+                  </Box>
+                </form>
+              </>
             )}
         </Formik>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{"Confirm Payment?"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              By clicking on proceed you will be charged.
-          </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={handleClose}
-              color="primary"
-            >
-              Cancel
-          </Button>
-            <Button
-              onClick={() => history.push('/p-accountinfo')}
-              color="primary"
-              autoFocus
-              variant="contained"
-            >
-              Proceed
-          </Button>
-          </DialogActions>
-        </Dialog>
+        <Snackbar open={msg} onClose={handleCloseMsg} autoHideDuration={3000} >
+          <Alert onClose={handleCloseMsg} severity="success">
+            Payment is Successful
+        </Alert>
+        </Snackbar>
 
       </div>
 
@@ -354,7 +386,8 @@ function AccountPayment(props) {
 }
 
 AccountPayment.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  asyncPartnerTokenUpdate: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -363,4 +396,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default compose(connect(mapStateToProps, {}, null))(AccountPayment);
+export default compose(connect(mapStateToProps, { asyncPartnerTokenUpdate }, null))(AccountPayment);
